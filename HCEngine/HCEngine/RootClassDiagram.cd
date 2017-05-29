@@ -4,35 +4,35 @@
     <Position X="3" Y="0.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAgAAAAAABAAgAAAAACAAAAAAAAIAABAAA=</HashCode>
-      <FileName>HGEngineException.cs</FileName>
+      <FileName>Exceptions\HGEngineException.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="HCEngine.SyntaxException">
     <Position X="1.25" Y="4.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>ACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>SyntaxException.cs</FileName>
+      <FileName>Exceptions\SyntaxException.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="HCEngine.ExecutionException">
     <Position X="4.5" Y="4.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>ExecutionException.cs</FileName>
+      <FileName>Exceptions\ExecutionException.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="HCEngine.OperationException">
     <Position X="3" Y="6.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>ACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>OperationException.cs</FileName>
+      <FileName>Exceptions\OperationException.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="HCEngine.ScopeException">
     <Position X="5.75" Y="6.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>ACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>ScopeException.cs</FileName>
+      <FileName>Exceptions\ScopeException.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Interface Name="HCEngine.ISourceReader">
