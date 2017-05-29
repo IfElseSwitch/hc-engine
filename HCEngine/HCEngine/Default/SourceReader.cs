@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.IO;
 using System.Text;
 
 namespace HCEngine.Default
@@ -31,6 +32,24 @@ namespace HCEngine.Default
         /// <see cref="ISourceReader.ReadingComplete"/>
         /// </summary>
         public bool ReadingComplete
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// <see cref="ISourceReader.Line"/>
+        /// </summary>
+        public int Line
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// <see cref="ISourceReader.Column"/>
+        /// </summary>
+        public int Column
         {
             get;
             private set;
@@ -71,29 +90,43 @@ namespace HCEngine.Default
         {
             StringBuilder nextWord = new StringBuilder();
             bool isReadingString = false;
-
-            foreach (char c in source)
+            Line = 0;
+            Column = 1;
+            using (StringReader sr = new StringReader(source))
             {
-                if (c == '"')
+                string line;
+                while (null != ( line = sr.ReadLine() ))
                 {
-                    isReadingString = !isReadingString;
-                }
-                if (char.IsWhiteSpace(c) && !isReadingString)
-                {
-                    if (nextWord.Length > 0)
+                    ++Line;
+                    Column = 1;
+                    int col = 0;
+                    foreach (char c in line)
                     {
-                        string keyword = nextWord.ToString();
-                        nextWord.Clear();
-                        yield return keyword;
+                        ++col;
+                        if (c == '"')
+                        {
+                            isReadingString = !isReadingString;
+                        }
+                        if (char.IsWhiteSpace(c) && !isReadingString)
+                        {
+                            if (nextWord.Length > 0)
+                            {
+                                string keyword = nextWord.ToString();
+                                nextWord.Clear();
+                                yield return keyword;
+                            }
+                            Column = col + 1;
+                        }
+                        else
+                        {
+                            nextWord.Append(c);
+                        }
                     }
-                }
-                else
-                {
-                    nextWord.Append(c);
+                    if (nextWord.Length > 0)
+                        yield return nextWord.ToString();
                 }
             }
-            if (nextWord.Length > 0)
-                yield return nextWord.ToString();
+            
         }
     }
 }
