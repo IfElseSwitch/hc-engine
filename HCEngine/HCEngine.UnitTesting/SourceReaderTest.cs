@@ -43,5 +43,27 @@ namespace HCEngine.UnitTesting
             reader.Initialize(padded);
             TestReader(reader, expected);
         }
+
+        [TestMethod]
+        public void TestReadingLines()
+        {
+            string source = "reading\nthis should\nbe ok";
+            ISourceReader reader = new SourceReader();
+            reader.Initialize(source);
+            Assert.AreEqual(reader.Line, 1);
+            Assert.AreEqual(reader.Column, 1);
+            reader.ReadNext();
+            Assert.AreEqual(reader.Line, 2);
+            Assert.AreEqual(reader.Column, 1);
+            reader.ReadNext();
+            Assert.AreEqual(reader.Line, 2);
+            Assert.AreEqual(reader.Column, 6);
+            reader.ReadNext();
+            Assert.AreEqual(reader.Line, 3);
+            Assert.AreEqual(reader.Column, 1);
+            reader.ReadNext();
+            Assert.AreEqual(reader.Line, 3);
+            Assert.AreEqual(reader.Column, 3);
+        }
     }
 }
