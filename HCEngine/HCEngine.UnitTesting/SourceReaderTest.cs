@@ -63,7 +63,7 @@ namespace HCEngine.UnitTesting
             Assert.AreEqual(1, reader.Column);
             reader.ReadNext();
             Assert.AreEqual(3, reader.Line);
-            Assert.AreEqual(3, reader.Column);
+            Assert.AreEqual(4, reader.Column);
         }
     }
 }
