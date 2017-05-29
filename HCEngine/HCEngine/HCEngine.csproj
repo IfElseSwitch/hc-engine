@@ -42,12 +42,17 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Default\SourceReader.cs" />
+    <Compile Include="ExecutionException.cs" />
+    <Compile Include="HGEngineException.cs" />
     <Compile Include="IEngine.cs" />
     <Compile Include="IScript.cs" />
     <Compile Include="IScriptExecution.cs" />
     <Compile Include="IScriptStructure.cs" />
     <Compile Include="ISourceReader.cs" />
+    <Compile Include="OperationException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ScopeException.cs" />
+    <Compile Include="SyntaxException.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="RootClassDiagram.cd" />
