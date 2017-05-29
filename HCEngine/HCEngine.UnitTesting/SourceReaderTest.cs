@@ -50,20 +50,20 @@ namespace HCEngine.UnitTesting
             string source = "reading\nthis should\nbe ok";
             ISourceReader reader = new SourceReader();
             reader.Initialize(source);
-            Assert.AreEqual(reader.Line, 1);
-            Assert.AreEqual(reader.Column, 1);
+            Assert.AreEqual(1, reader.Line);
+            Assert.AreEqual(1, reader.Column);
             reader.ReadNext();
-            Assert.AreEqual(reader.Line, 2);
-            Assert.AreEqual(reader.Column, 1);
+            Assert.AreEqual(2, reader.Line);
+            Assert.AreEqual(1, reader.Column);
             reader.ReadNext();
-            Assert.AreEqual(reader.Line, 2);
-            Assert.AreEqual(reader.Column, 6);
+            Assert.AreEqual(2, reader.Line);
+            Assert.AreEqual(6, reader.Column);
             reader.ReadNext();
-            Assert.AreEqual(reader.Line, 3);
-            Assert.AreEqual(reader.Column, 1);
+            Assert.AreEqual(3, reader.Line);
+            Assert.AreEqual(1, reader.Column);
             reader.ReadNext();
-            Assert.AreEqual(reader.Line, 3);
-            Assert.AreEqual(reader.Column, 3);
+            Assert.AreEqual(3, reader.Line);
+            Assert.AreEqual(3, reader.Column;
         }
     }
 }
