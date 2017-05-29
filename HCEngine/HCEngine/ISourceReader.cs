@@ -26,5 +26,15 @@
         /// Is the source code completely read?
         /// </summary>
         bool ReadingComplete { get; }
+
+        /// <summary>
+        /// Line of the last keyword read
+        /// </summary>
+        int Line { get; }
+
+        /// <summary>
+        /// Column of the last keyword read
+        /// </summary>
+        int Column { get; }
     }
 }
