@@ -34,7 +34,14 @@ namespace HCEngine.UnitTesting
         [TestMethod]
         public void TestReadingStrings()
         {
-
+            string[] expected = new string[] { "reading", "\"this should\"", "be", "ok" };
+            string compact = "reading \"this should\" be ok";
+            string padded = "    reading    \"this should\"  be ok  \n";
+            ISourceReader reader = new SourceReader();
+            reader.Initialize(compact);
+            TestReader(reader, expected);
+            reader.Initialize(padded);
+            TestReader(reader, expected);
         }
     }
 }
