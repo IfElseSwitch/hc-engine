@@ -50,10 +50,17 @@
     </TypeIdentifier>
   </Interface>
   <Interface Name="HCEngine.ISyntaxTreeItem">
-    <Position X="8.75" Y="1" Width="1.5" />
+    <Position X="8.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAACEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ISyntaxTreeItem.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="HCEngine.IExecutionScope">
+    <Position X="11" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>ISyntaxTreeItem.cs</FileName>
+      <FileName>IExecutionScope.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Font Name="Segoe UI" Size="9" />
