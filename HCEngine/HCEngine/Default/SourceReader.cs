@@ -112,7 +112,7 @@ namespace HCEngine.Default
                             if (nextWord.Length > 0)
                             {
                                 string keyword = nextWord.ToString();
-                                nextWord.Clear();
+                                nextWord = new StringBuilder();
                                 yield return keyword;
                             }
                             Column = col + 1;
