@@ -8,7 +8,7 @@
         /// <summary>
         /// Structure of the script language to interpret
         /// </summary>
-        IScriptStructure Structure { get; set; }
+        IScriptStructureDefinition Structure { get; set; }
 
         /// <summary>
         /// Reads a script source and builds the corresponding <see cref="IScript"/> object;
