@@ -17,11 +17,6 @@ namespace HCEngine
         /// <param name="reader">
         ///   <see cref="ISourceReader" /> for setting up the node.</param>
         void Setup(ISourceReader reader);
-
-        /// <summary>
-        /// Logic for executing the item, given a scope.
-        /// </summary>
-        /// <param name="scope">Current scope for the execution.</param>
-        void Execute(IExecutionScope scope);
+        IScriptExecution Execute(IExecutionScope scope);
     }
 }
