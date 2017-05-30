@@ -4,6 +4,9 @@ using System.Text;
 
 namespace HCEngine
 {
+    /// <summary>
+    /// Interface for Syntax tree items.
+    /// </summary>
     public interface ISyntaxTreeItem
     {
         /// <summary>

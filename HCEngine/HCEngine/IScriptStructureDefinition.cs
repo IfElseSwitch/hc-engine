@@ -1,5 +1,8 @@
 ﻿namespace HCEngine
 {
+    /// <summary>
+    /// Interface for the defition of the expected script structure.
+    /// </summary>
     public interface IScriptStructureDefinition
     {
         /// <summary>
