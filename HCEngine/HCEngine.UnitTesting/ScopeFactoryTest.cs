@@ -46,28 +46,28 @@ namespace HCEngine.UnitTesting
             Assert.IsTrue(scope.IsOfType<Type>("FirstType"));
             Type t = scope["FirstType"] as Type;
             Assert.IsNotNull(t);
-            Assert.Equals(typeof(FirstType), t);
+            Assert.AreEqual(typeof(FirstType), t);
 
             Assert.IsFalse(scope.Contains("SecondType"));
             Assert.IsTrue(scope.Contains("Another"));
             Assert.IsTrue(scope.IsOfType<Type>("Another"));
             t = scope["Another"] as Type;
             Assert.IsNotNull(t);
-            Assert.Equals(typeof(SecondType), t);
+            Assert.AreEqual(typeof(SecondType), t);
 
             Assert.IsFalse(scope.Contains("ThirdType"));
             Assert.IsTrue(scope.Contains("Int32"));
             Assert.IsTrue(scope.IsOfType<Type>("Int32"));
             t = scope["Int32"] as Type;
             Assert.IsNotNull(t);
-            Assert.Equals(typeof(int), t);
+            Assert.AreEqual(typeof(int), t);
 
             Assert.IsFalse(scope.Contains("FouthType"));
             Assert.IsTrue(scope.Contains("BoolType"));
             Assert.IsTrue(scope.IsOfType<Type>("BoolType"));
             t = scope["BoolType"] as Type;
             Assert.IsNotNull(t);
-            Assert.Equals(typeof(bool), t);
+            Assert.AreEqual(typeof(bool), t);
         }
 
         [ExposedCall]
