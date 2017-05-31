@@ -49,6 +49,8 @@
     <Compile Include="Exceptions\ExecutionException.cs" />
     <Compile Include="Exceptions\HGEngineException.cs" />
     <Compile Include="Engine.cs" />
+    <Compile Include="ExposedCallAttribute.cs" />
+    <Compile Include="ExposedTypeAttribute.cs" />
     <Compile Include="IExecutionScope.cs" />
     <Compile Include="IScopeFactory.cs" />
     <Compile Include="IScript.cs" />

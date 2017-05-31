@@ -47,6 +47,20 @@
       <Property Name="DefaultScope" />
     </ShowAsAssociation>
   </Class>
+  <Class Name="HCEngine.ExposedTypeAttribute">
+    <Position X="9" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAA=</HashCode>
+      <FileName>ExposedTypeAttribute.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HCEngine.ExposedCallAttribute">
+    <Position X="11.5" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAA=</HashCode>
+      <FileName>ExposedCallAttribute.cs</FileName>
+    </TypeIdentifier>
+  </Class>
   <Interface Name="HCEngine.ISourceReader">
     <Position X="3" Y="0.75" Width="1.5" />
     <TypeIdentifier>
