@@ -1,4 +1,6 @@
-﻿namespace HCEngine
+﻿using HCEngine.Default;
+
+namespace HCEngine
 {
     /// <summary>
     /// Interface for the entry point of the HC Engine.
@@ -6,19 +8,24 @@
     public class Engine
     {
 
+        public Engine(IScopeFactory factory)
+        {
+            Reader = new SourceReader();
+            Structure = new DefaultLanguageStructure();
+            DefaultScope = factory.MakeScope();
+        }
+
+        public Engine()
+            :this(new ScopeFactory())
+        { }
+
         /// <summary>
         /// The <see cref="ISourceReader" /> used for reading sources.
         /// </summary>
         public ISourceReader Reader
         {
-            get
-            {
-                throw new System.NotImplementedException();
-            }
-
-            set
-            {
-            }
+            get;
+            set;
         }
 
         /// <summary>
@@ -26,14 +33,8 @@
         /// </summary>
         public IScriptStructureDefinition Structure
         {
-            get
-            {
-                throw new System.NotImplementedException();
-            }
-
-            set
-            {
-            }
+            get;
+            set;
         }
 
         /// <summary>
@@ -41,14 +42,8 @@
         /// </summary>
         public IExecutionScope DefaultScope
         {
-            get
-            {
-                throw new System.NotImplementedException();
-            }
-
-            set
-            {
-            }
+            get;
+            private set;
         }
 
         /// <summary>
