@@ -38,6 +38,11 @@ namespace HCEngine.Default
         }
 
         /// <summary>
+        /// <see cref="ISourceReader.LineOfCode"/> 
+        /// </summary>
+        public string LineOfCode { get; private set; }
+
+        /// <summary>
         /// <see cref="ISourceReader.Line"/>
         /// </summary>
         public int Line
@@ -60,8 +65,9 @@ namespace HCEngine.Default
         /// </summary>
         public void Initialize(string source)
         {
-            m_Reader = Read(source);
+            LineOfCode = null;
             ReadingComplete = false;
+            m_Reader = Read(source);
             ReadNext();
         }
 
@@ -97,6 +103,7 @@ namespace HCEngine.Default
                 string line;
                 while (null != ( line = sr.ReadLine() ))
                 {
+                    LineOfCode = line;
                     ++Line;
                     Column = 1;
                     int col = 0;
@@ -125,6 +132,7 @@ namespace HCEngine.Default
                     if (nextWord.Length > 0)
                         yield return nextWord.ToString();
                 }
+                LineOfCode = null;
             }
             
         }
