@@ -54,6 +54,7 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SourceReaderTest.cs" />
+    <Compile Include="ExecutionScopeTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\HCEngine\HCEngine.csproj">
