@@ -7,7 +7,10 @@ namespace HCEngine
     /// </summary>
     public class Engine
     {
-
+        /// <summary>
+        /// Constructor without using the default factory
+        /// </summary>
+        /// <param name="factory">Factory to build the default scope</param>
         public Engine(IScopeFactory factory)
         {
             Reader = new SourceReader();
@@ -15,6 +18,9 @@ namespace HCEngine
             DefaultScope = factory.MakeScope();
         }
 
+        /// <summary>
+        /// Default constructor
+        /// </summary>
         public Engine()
             :this(new ScopeFactory())
         { }
