@@ -46,8 +46,9 @@
     <Compile Include="Default\SourceReader.cs" />
     <Compile Include="Exceptions\ExecutionException.cs" />
     <Compile Include="Exceptions\HGEngineException.cs" />
-    <Compile Include="IEngine.cs" />
+    <Compile Include="Engine.cs" />
     <Compile Include="IExecutionScope.cs" />
+    <Compile Include="IScopeFactory.cs" />
     <Compile Include="IScript.cs" />
     <Compile Include="IScriptExecution.cs" />
     <Compile Include="IScriptStructureDefinition.cs" />
