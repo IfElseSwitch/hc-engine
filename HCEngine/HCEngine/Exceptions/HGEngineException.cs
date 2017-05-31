@@ -12,14 +12,14 @@ namespace HCEngine
         /// Constructor for HG Engine exceptions.
         /// </summary>
         /// <param name="errorType">Type of error as displayed to the user</param>
-        /// <param name="sourceFile">Path to the file where the error occurs</param>
-        /// <param name="line">Line at which the error occcurs</param>
+        /// <param name="lineOfCode">Line of code where the error occurs</param>
+        /// <param name="line">Line number at which the error occcurs</param>
         /// <param name="column">Column at which the error occurs</param>
         /// <param name="description">Description of the error</param>
-        public HGEngineException(string errorType, string sourceFile, int line, int column, string description)
+        public HGEngineException(string errorType, string lineOfCode, int line, int column, string description)
         {
             ErrorType = errorType;
-            SourceFile = sourceFile;
+            LineOfCode = lineOfCode;
             Line = line;
             Column = column;
             Description = description;
@@ -29,11 +29,10 @@ namespace HCEngine
         /// Constructor for HG Engine exceptions, using a <see cref="ISourceReader"/> for line and column 
         /// </summary>
         /// <param name="errorType">Type of error as displayed to the user</param>
-        /// <param name="sourceFile">Path to the file where the error occurs</param>
         /// <param name="reader"><see cref="ISourceReader"/> used to read the source</param>
         /// <param name="description">Description of the error</param>
-        public HGEngineException(string errorType, string sourceFile, ISourceReader reader, string description)
-                    : this(errorType, sourceFile, reader.Line, reader.Column, description) { }
+        public HGEngineException(string errorType, ISourceReader reader, string description)
+                    : this(errorType, reader.LineOfCode, reader.Line, reader.Column, description) { }
 
         /// <summary>
         /// <see cref="Exception.Message"/>
@@ -43,17 +42,17 @@ namespace HCEngine
             get
             {
                 return string.Format("HG Engine {0} error in {1} at {2}:{3} : {4}",
-                    ErrorType, SourceFile, Line, Column, Description);
+                    ErrorType, LineOfCode, Line, Column, Description);
             }
         }
         
         /// <summary>
-        /// The name of the source file from which the error originates.
+        /// The Line of code where the error is thrown
         /// </summary>
-        public string SourceFile { get; set; }
+        public string LineOfCode { get; set; }
 
         /// <summary>
-        /// Line of the file at which the error is thrown.
+        /// Line number of the file at which the error is thrown.
         /// </summary>
         public int Line { get; set; }
 
