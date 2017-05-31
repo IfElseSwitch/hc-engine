@@ -5,7 +5,7 @@ namespace HCEngine
     /// <summary>
     /// Interface for the entry point of the HC Engine.
     /// </summary>
-    public class Engine
+    public sealed class Engine
     {
         /// <summary>
         /// Constructor without using the default factory
