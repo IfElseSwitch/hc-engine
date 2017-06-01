@@ -85,10 +85,6 @@ namespace HCEngine.UnitTesting.DefaultLanguage
                 se.RemoveUnusedWarning();
                 Assert.IsTrue(expectError);
             }
-            catch
-            {
-                Assert.Fail("Unknown error caught");
-            }
 
         }
     }
