@@ -14,7 +14,16 @@ namespace HCEngine.Default.Language
         /// </summary>
         public IScriptExecution Execute(ISourceReader reader, IExecutionScope scope)
         {
-            throw new NotImplementedException();
+            if (DefaultLanguageNodes.ListOfStatements.IsStartOfNode(reader.LastKeyword, scope))
+                return DefaultLanguageNodes.ListOfStatements.Execute(reader, scope);
+
+            if (DefaultLanguageNodes.Section.IsStartOfNode(reader.LastKeyword, scope))
+                return DefaultLanguageNodes.Section.Execute(reader, scope);
+
+            if (DefaultLanguageNodes.Operation.IsStartOfNode(reader.LastKeyword, scope))
+                return DefaultLanguageNodes.Operation.Execute(reader, scope);
+
+            throw new SyntaxException(reader, "Not recognized as statement");
         }
 
         /// <summary>

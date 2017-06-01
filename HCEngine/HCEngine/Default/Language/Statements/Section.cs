@@ -15,10 +15,12 @@ namespace HCEngine.Default.Language
         public IScriptExecution Execute(ISourceReader reader, IExecutionScope scope)
         {
             if (DefaultLanguageNodes.If.IsStartOfNode(reader.LastKeyword, scope))
-                DefaultLanguageNodes.If.Execute(reader, scope);
+                return DefaultLanguageNodes.If.Execute(reader, scope);
 
             if (DefaultLanguageNodes.Loop.IsStartOfNode(reader.LastKeyword, scope))
-                DefaultLanguageNodes.Loop.Execute(reader, scope);
+                return DefaultLanguageNodes.Loop.Execute(reader, scope);
+
+            throw new SyntaxException(reader, "Not recognized as section");
         }
 
         /// <summary>
