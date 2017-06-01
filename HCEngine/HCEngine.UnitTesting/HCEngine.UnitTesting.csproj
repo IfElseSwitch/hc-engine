@@ -53,16 +53,19 @@
   </Choose>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SourceReaderTest.cs" />
-    <Compile Include="ExecutionScopeTest.cs" />
-    <Compile Include="ScriptExecutionTest.cs" />
-    <Compile Include="ScopeFactoryTest.cs" />
+    <Compile Include="EngineCore\SourceReaderTest.cs" />
+    <Compile Include="EngineCore\ExecutionScopeTest.cs" />
+    <Compile Include="EngineCore\ScriptExecutionTest.cs" />
+    <Compile Include="EngineCore\ScopeFactoryTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\HCEngine\HCEngine.csproj">
       <Project>{17a71dfd-be1a-4364-ab06-877d6ce142ec}</Project>
       <Name>HCEngine</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="DefaultLanguage\" />
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

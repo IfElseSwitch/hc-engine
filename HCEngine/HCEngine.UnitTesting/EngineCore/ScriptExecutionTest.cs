@@ -3,7 +3,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
 using HCEngine.Default;
 
-namespace HCEngine.UnitTesting
+namespace HCEngine.UnitTesting.EngineCore
 {
     [TestClass]
     public class ScriptExecutionTest

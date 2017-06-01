@@ -2,7 +2,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using HCEngine.Default;
 
-namespace HCEngine.UnitTesting
+namespace HCEngine.UnitTesting.EngineCore
 {
     [TestClass]
     public class SourceReaderTest

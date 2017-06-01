@@ -2,7 +2,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Reflection;
 
-namespace HCEngine.UnitTesting
+namespace HCEngine.UnitTesting.EngineCore
 {
     [ExposedType]
     public class FirstType { }
