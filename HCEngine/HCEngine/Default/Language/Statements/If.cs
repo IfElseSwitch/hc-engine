@@ -5,20 +5,16 @@ using System.Text;
 namespace HCEngine.Default.Language
 {
     /// <summary>
-    /// Class to execute sections
+    /// Class for executing ifs
     /// </summary>
-    public class Section : ISyntaxTreeItem
+    public class If : ISyntaxTreeItem
     {
         /// <summary>
         /// <see cref="ISyntaxTreeItem.Execute(ISourceReader, IExecutionScope)"/> 
         /// </summary>
         public IScriptExecution Execute(ISourceReader reader, IExecutionScope scope)
         {
-            if (DefaultLanguageNodes.If.IsStartOfNode(reader.LastKeyword, scope))
-                DefaultLanguageNodes.If.Execute(reader, scope);
-
-            if (DefaultLanguageNodes.Loop.IsStartOfNode(reader.LastKeyword, scope))
-                DefaultLanguageNodes.Loop.Execute(reader, scope);
+            return new ScriptExecution(Exec(reader, scope));
         }
 
         /// <summary>
@@ -26,8 +22,12 @@ namespace HCEngine.Default.Language
         /// </summary>
         public bool IsStartOfNode(string word, IExecutionScope scope)
         {
-            return DefaultLanguageNodes.If.IsStartOfNode(word, scope) ||
-                DefaultLanguageNodes.Loop.IsStartOfNode(word, scope);
+            return word.Equals(DefaultLanguageKeywords.IfKeyword);
+        }
+
+        private IEnumerator<object> Exec(ISourceReader reader, IExecutionScope scope)
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -50,6 +50,8 @@
     <Compile Include="Default\Language\Input\InputDeclaration.cs" />
     <Compile Include="Default\Language\Input\InputSection.cs" />
     <Compile Include="Default\Language\Statements\Constant.cs" />
+    <Compile Include="Default\Language\Statements\If.cs" />
+    <Compile Include="Default\Language\Statements\Loop.cs" />
     <Compile Include="Default\Language\Statements\Operation.cs" />
     <Compile Include="Default\Language\Statements\Section.cs" />
     <Compile Include="Default\Language\Statements\Statement.cs" />

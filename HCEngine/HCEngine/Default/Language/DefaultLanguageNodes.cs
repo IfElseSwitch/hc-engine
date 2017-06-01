@@ -37,6 +37,16 @@ namespace HCEngine.Default.Language
         public static ISyntaxTreeItem Section { get; set; } = new Section();
 
         /// <summary>
+        /// Syntax node to use to read ifs
+        /// </summary>
+        public static ISyntaxTreeItem If { get; set; } = new If();
+
+        /// <summary>
+        /// Syntax node to use to read loops
+        /// </summary>
+        public static ISyntaxTreeItem Loop { get; set; } = new Loop();
+
+        /// <summary>
         /// Syntax node to use to read operations
         /// </summary>
         public static ISyntaxTreeItem Operation { get; set; } = new Operation();
