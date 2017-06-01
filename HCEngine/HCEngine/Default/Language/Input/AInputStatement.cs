@@ -9,9 +9,11 @@ namespace HCEngine.Default.Language
     /// </summary>
     public abstract class AInputStatement : ISyntaxTreeItem, IInput
     {
+        private IDictionary<string, Type> m_Parameters = new Dictionary<string, Type>();
+
         public abstract List<ISyntaxTreeItem> ChildrenNodes { get; set; }
 
-        public abstract IDictionary<string, Type> ParametersMap { get; }
+        public IDictionary<string, Type> ParametersMap { get { return m_Parameters; } }
 
         public abstract IScriptExecution Execute(IExecutionScope scope);
 
