@@ -21,7 +21,7 @@ namespace HCEngine.UnitTesting.DefaultLanguage
         public void TestConstant()
         {
             TestOperation<Constant>("1", false, 1, null);
-            TestOperation<Constant>("\"the cat\"", false, 1, null);
+            TestOperation<Constant>("\"the cat\"", false, "the cat", null);
             TestOperation<Constant>("[wrong]", true, null, typeof(SyntaxException));
         }
 

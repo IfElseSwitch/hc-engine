@@ -6,7 +6,7 @@ using HCEngine.Default.Language;
 
 namespace HCEngine.UnitTesting.DefaultLanguage
 {
-    [ExposedType(LinkToType =typeof(int), NameOverride = "Int")]
+    [ExposedType(LinkToType =typeof(int), NameOverride = "Int", ConstantReaderType = typeof(IntReader))]
     public class IntLink
     {
         class IntReader : IConstantReader
