@@ -10,18 +10,18 @@ namespace HCEngine.Default.Language
     public class Statement : ISyntaxTreeItem
     {
         /// <summary>
-        /// <see cref="ISyntaxTreeItem.Execute(ISourceReader, IExecutionScope)"/> 
+        /// <see cref="ISyntaxTreeItem.Execute(ISourceReader, IExecutionScope, bool)"/> 
         /// </summary>
-        public IScriptExecution Execute(ISourceReader reader, IExecutionScope scope)
+        public IScriptExecution Execute(ISourceReader reader, IExecutionScope scope, bool skipExec)
         {
             if (DefaultLanguageNodes.ListOfStatements.IsStartOfNode(reader.LastKeyword, scope))
-                return DefaultLanguageNodes.ListOfStatements.Execute(reader, scope);
+                return DefaultLanguageNodes.ListOfStatements.Execute(reader, scope, skipExec);
 
             if (DefaultLanguageNodes.Section.IsStartOfNode(reader.LastKeyword, scope))
-                return DefaultLanguageNodes.Section.Execute(reader, scope);
+                return DefaultLanguageNodes.Section.Execute(reader, scope, skipExec);
 
             if (DefaultLanguageNodes.Operation.IsStartOfNode(reader.LastKeyword, scope))
-                return DefaultLanguageNodes.Operation.Execute(reader, scope);
+                return DefaultLanguageNodes.Operation.Execute(reader, scope, skipExec);
 
             throw new SyntaxException(reader, "Not recognized as statement");
         }

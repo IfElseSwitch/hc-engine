@@ -11,11 +11,11 @@ namespace HCEngine.Default.Language
     public class Call : ISyntaxTreeItem
     {
         /// <summary>
-        /// <see cref="ISyntaxTreeItem.Execute(ISourceReader, IExecutionScope)"/> 
+        /// <see cref="ISyntaxTreeItem.Execute(ISourceReader, IExecutionScope, bool)"/> 
         /// </summary>
-        public IScriptExecution Execute(ISourceReader reader, IExecutionScope scope)
+        public IScriptExecution Execute(ISourceReader reader, IExecutionScope scope, bool skipExec)
         {
-            return new ScriptExecution(Exec(reader, scope));
+            return new ScriptExecution(Exec(reader, scope, skipExec));
         }
 
         /// <summary>
@@ -26,7 +26,7 @@ namespace HCEngine.Default.Language
             return scope.Contains(word) && scope.IsOfType<MethodInfo>(word);
         }
 
-        private IEnumerator<object> Exec(ISourceReader reader, IExecutionScope scope)
+        private IEnumerator<object> Exec(ISourceReader reader, IExecutionScope scope, bool skipExec)
         {
             if (reader.ReadingComplete)
                 throw new SyntaxException(reader, "Unexpected end of file");
@@ -42,7 +42,7 @@ namespace HCEngine.Default.Language
             {
                 if (reader.ReadingComplete)
                     throw new SyntaxException(reader, "Unexpected end of file");
-                var exec = DefaultLanguageNodes.Operation.Execute(reader, scope);
+                var exec = DefaultLanguageNodes.Operation.Execute(reader, scope, skipExec);
                 object lastValue = null;
                 foreach(object o in exec)
                 {
@@ -53,7 +53,8 @@ namespace HCEngine.Default.Language
                     throw new OperationException(reader, string.Format("Wrong parameter for argument {0} of call {1}", param.Name, method.Name));
                 args[i++] = lastValue;
             }
-            yield return method.Invoke(null, args);
+            if (!skipExec)
+                yield return method.Invoke(null, args);
         }
     }
 }

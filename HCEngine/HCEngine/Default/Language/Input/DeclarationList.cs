@@ -10,11 +10,11 @@ namespace HCEngine.Default.Language
     public class DeclarationList : ISyntaxTreeItem
     {
         /// <summary>
-        /// <see cref="ISyntaxTreeItem.Execute(ISourceReader, IExecutionScope)"/>
+        /// <see cref="ISyntaxTreeItem.Execute(ISourceReader, IExecutionScope, bool)"/>
         /// </summary>
-        public IScriptExecution Execute(ISourceReader reader, IExecutionScope scope)
+        public IScriptExecution Execute(ISourceReader reader, IExecutionScope scope, bool skipExec)
         {
-            return new ScriptExecution(Exec(reader, scope));
+            return new ScriptExecution(Exec(reader, scope, skipExec));
         }
 
         /// <summary>
@@ -25,7 +25,7 @@ namespace HCEngine.Default.Language
             return word.Equals(DefaultLanguageKeywords.ListBeginSymbol);
         }
 
-        private IEnumerator<object> Exec(ISourceReader reader, IExecutionScope scope)
+        private IEnumerator<object> Exec(ISourceReader reader, IExecutionScope scope, bool skipExec)
         {
             if (reader.ReadingComplete)
                 throw new SyntaxException(reader, "Unexpected end of file");
@@ -40,7 +40,7 @@ namespace HCEngine.Default.Language
             while (!reader.LastKeyword.Equals(DefaultLanguageKeywords.ListEndSymbol))
             {
                 InputDeclaration declaration = new InputDeclaration();
-                var exec = DefaultLanguageNodes.Declaration.Execute(reader, scope);
+                var exec = DefaultLanguageNodes.Declaration.Execute(reader, scope, skipExec);
                 object o = exec.ExecuteNext();
                 var pmap = o as IDictionary<string, Type>;
                 if (reader.ReadingComplete)

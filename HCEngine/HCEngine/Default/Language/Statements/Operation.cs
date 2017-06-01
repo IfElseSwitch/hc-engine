@@ -11,19 +11,19 @@ namespace HCEngine.Default.Language
     public class Operation : ISyntaxTreeItem
     {
         /// <summary>
-        /// <see cref="ISyntaxTreeItem.Execute(ISourceReader, IExecutionScope)"/>
+        /// <see cref="ISyntaxTreeItem.Execute(ISourceReader, IExecutionScope, bool)"/>
         /// </summary>
-        public IScriptExecution Execute(ISourceReader reader, IExecutionScope scope)
+        public IScriptExecution Execute(ISourceReader reader, IExecutionScope scope, bool skipExec)
         {
             string word = reader.LastKeyword;
             if (DefaultLanguageNodes.Call.IsStartOfNode(word, scope))
-                return DefaultLanguageNodes.Call.Execute(reader, scope);
+                return DefaultLanguageNodes.Call.Execute(reader, scope, skipExec);
 
             if (DefaultLanguageNodes.Variable.IsStartOfNode(word, scope))
-                return DefaultLanguageNodes.Variable.Execute(reader, scope);
+                return DefaultLanguageNodes.Variable.Execute(reader, scope, skipExec);
 
             if (DefaultLanguageNodes.Constant.IsStartOfNode(word, scope))
-                return DefaultLanguageNodes.Constant.Execute(reader, scope);
+                return DefaultLanguageNodes.Constant.Execute(reader, scope, skipExec);
 
             throw new SyntaxException(reader, "Not recognized as operation");
         }

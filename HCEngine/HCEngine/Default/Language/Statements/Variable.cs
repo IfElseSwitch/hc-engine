@@ -10,11 +10,11 @@ namespace HCEngine.Default.Language
     public class Variable : ISyntaxTreeItem
     {
         /// <summary>
-        /// <see cref="ISyntaxTreeItem.Execute(ISourceReader, IExecutionScope)"/> 
+        /// <see cref="ISyntaxTreeItem.Execute(ISourceReader, IExecutionScope, bool)"/> 
         /// </summary>
-        public IScriptExecution Execute(ISourceReader reader, IExecutionScope scope)
+        public IScriptExecution Execute(ISourceReader reader, IExecutionScope scope, bool skipExec)
         {
-            return new ScriptExecution(Exec(reader, scope));
+            return new ScriptExecution(Exec(reader, scope, skipExec));
         }
 
         /// <summary>
@@ -25,7 +25,7 @@ namespace HCEngine.Default.Language
             return word.StartsWith(DefaultLanguageKeywords.VariableFirstSymbol);
         }
 
-        IEnumerator<object> Exec(ISourceReader reader, IExecutionScope scope)
+        IEnumerator<object> Exec(ISourceReader reader, IExecutionScope scope, bool skipExec)
         {
             if (reader.ReadingComplete)
                 throw new SyntaxException(reader, "Unexpected end of file");
@@ -35,14 +35,15 @@ namespace HCEngine.Default.Language
             string identifier = word;
             yield return identifier;
             object value = null;
-            try
-            {
-                value = scope[identifier];
-            }
-            catch(ScopeException se)
-            {
-                throw new ScopeException(reader, se.Description);
-            }
+            if (!skipExec)
+                try
+                {
+                    value = scope[identifier];
+                }
+                catch(ScopeException se)
+                {
+                    throw new ScopeException(reader, se.Description);
+                }
             reader.ReadNext();
             yield return value;
         }

@@ -4,6 +4,9 @@ using System.Text;
 
 namespace HCEngine.Default.Language
 {
+    /// <summary>
+    /// Class storing the default language classes
+    /// </summary>
     public static class DefaultLanguageNodes
     {
         /// <summary>

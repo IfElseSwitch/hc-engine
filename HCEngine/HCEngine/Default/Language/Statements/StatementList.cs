@@ -10,13 +10,13 @@ namespace HCEngine.Default.Language
     public class StatementList : ISyntaxTreeItem
     {
         /// <summary>
-        /// <see cref="ISyntaxTreeItem.Execute(ISourceReader, IExecutionScope)"/> 
+        /// <see cref="ISyntaxTreeItem.Execute(ISourceReader, IExecutionScope, bool)"/> 
         /// </summary>
-        public IScriptExecution Execute(ISourceReader reader, IExecutionScope scope)
+        public IScriptExecution Execute(ISourceReader reader, IExecutionScope scope, bool skipExec)
         {
-            return new ScriptExecution(Exec(reader, scope));
+            return new ScriptExecution(Exec(reader, scope, skipExec));
         }
-        
+
         /// <summary>
         /// <see cref="ISyntaxTreeItem.IsStartOfNode(string, IExecutionScope)"/> 
         /// </summary>
@@ -25,7 +25,7 @@ namespace HCEngine.Default.Language
             return word.Equals(DefaultLanguageKeywords.ListBeginSymbol);
         }
 
-        private IEnumerator<object> Exec(ISourceReader reader, IExecutionScope scope)
+        private IEnumerator<object> Exec(ISourceReader reader, IExecutionScope scope, bool skipExec)
         {
             if (reader.ReadingComplete)
                 throw new SyntaxException(reader, "Unexpected end of file");
@@ -36,7 +36,12 @@ namespace HCEngine.Default.Language
                 throw new SyntaxException(reader, "Unexpected end of file");
             while (!reader.LastKeyword.Equals(DefaultLanguageKeywords.ListEndSymbol))
             {
-                var exec = DefaultLanguageNodes.Statement.Execute(reader, scope);
+                if (skipExec)
+                {
+                    reader.ReadNext();
+                    continue;
+                }
+                var exec = DefaultLanguageNodes.Statement.Execute(reader, scope, skipExec);
                 foreach (object o in exec)
                     yield return o;
                 if (reader.ReadingComplete)

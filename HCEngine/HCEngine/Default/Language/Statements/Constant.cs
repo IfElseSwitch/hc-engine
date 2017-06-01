@@ -8,11 +8,11 @@ namespace HCEngine.Default.Language
     public class Constant : ISyntaxTreeItem
     {
         /// <summary>
-        /// <see cref="ISyntaxTreeItem.Execute(ISourceReader, IExecutionScope)"/>
+        /// <see cref="ISyntaxTreeItem.Execute(ISourceReader, IExecutionScope, bool)"/>
         /// </summary>
-        public IScriptExecution Execute(ISourceReader reader, IExecutionScope scope)
+        public IScriptExecution Execute(ISourceReader reader, IExecutionScope scope, bool skipExec)
         {
-            return new ScriptExecution(Exec(reader, scope));
+            return new ScriptExecution(Exec(reader, scope, skipExec));
         }
 
         /// <summary>
@@ -32,7 +32,7 @@ namespace HCEngine.Default.Language
             return false;
         }
 
-        private IEnumerator<object> Exec(ISourceReader reader, IExecutionScope scope)
+        private IEnumerator<object> Exec(ISourceReader reader, IExecutionScope scope, bool skipExec)
         {
             object res = null;
             string word = reader.LastKeyword;
