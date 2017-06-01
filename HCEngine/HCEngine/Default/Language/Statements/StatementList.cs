@@ -14,15 +14,34 @@ namespace HCEngine.Default.Language
         /// </summary>
         public IScriptExecution Execute(ISourceReader reader, IExecutionScope scope)
         {
-            throw new NotImplementedException();
+            return new ScriptExecution(Exec(reader, scope));
         }
-
+        
         /// <summary>
         /// <see cref="ISyntaxTreeItem.IsStartOfNode(string, IExecutionScope)"/> 
         /// </summary>
         public bool IsStartOfNode(string word, IExecutionScope scope)
         {
-            throw new NotImplementedException();
+            return word.Equals(DefaultLanguageKeywords.ListBeginSymbol);
+        }
+
+        private IEnumerator<object> Exec(ISourceReader reader, IExecutionScope scope)
+        {
+            if (reader.ReadingComplete)
+                throw new SyntaxException(reader, "Unexpected end of file");
+            if (!IsStartOfNode(reader.LastKeyword, scope))
+                throw new SyntaxException(reader, "Lists should start with the list begin symbol.");
+            reader.ReadNext();
+            if (reader.ReadingComplete)
+                throw new SyntaxException(reader, "Unexpected end of file");
+            while (!reader.LastKeyword.Equals(DefaultLanguageKeywords.ListEndSymbol))
+            {
+                var exec = DefaultLanguageNodes.Statement.Execute(reader, scope);
+                foreach (object o in exec)
+                    yield return o;
+                if (reader.ReadingComplete)
+                    throw new SyntaxException(reader, "Unexpected end of file");
+            }
         }
     }
 }
