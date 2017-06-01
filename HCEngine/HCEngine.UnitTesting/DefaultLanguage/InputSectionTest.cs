@@ -71,22 +71,21 @@ namespace HCEngine.UnitTesting.DefaultLanguage
             try
             {
                 var exec = tested.Execute(reader, m_Scope);
-                foreach (var o in exec)
-                    o.RemoveUnusedWarning();
+                var pmap = exec.ExecuteNext() as IDictionary<string, Type>;
 
                 Assert.IsFalse(expectError);
-                //foreach (var kvp in expectedParameters)
-                //{
-                //    Assert.IsTrue(tested.ParametersMap.ContainsKey(kvp.Key));
-                //    Assert.AreEqual(kvp.Value, tested.ParametersMap[kvp.Key]);
-                //}
-                //if (!string.IsNullOrEmpty(unexpectedName))
-                //    Assert.IsFalse(tested.ParametersMap.ContainsKey(unexpectedName));
+                foreach (var kvp in expectedParameters)
+                {
+                    Assert.IsTrue(pmap.ContainsKey(kvp.Key));
+                    Assert.AreEqual(kvp.Value, pmap[kvp.Key]);
+                }
+                if (!string.IsNullOrEmpty(unexpectedName))
+                    Assert.IsFalse(pmap.ContainsKey(unexpectedName));
             }
             catch (SyntaxException se)
             {
                 se.RemoveUnusedWarning();
-                Assert.IsTrue(expectError);
+                Assert.IsTrue(expectError, se.Message);
             }
 
         }

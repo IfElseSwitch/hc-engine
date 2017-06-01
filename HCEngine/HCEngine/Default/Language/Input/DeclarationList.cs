@@ -9,37 +9,12 @@ namespace HCEngine.Default.Language
     /// </summary>
     public class DeclarationList : ISyntaxTreeItem
     {
-
-
-
-        //public override void Setup(ISourceReader reader, IExecutionScope scope)
-        //{
-        //    if (reader.ReadingComplete)
-        //        throw new SyntaxException(reader, "Unexpected end of file");
-        //    if (!reader.LastKeyword.Equals(DefaultLanguageKeywords.ListBeginSymbol))
-        //        throw new SyntaxException(reader, "Lists should start with the list begin symbol.");
-        //    reader.ReadNext();
-        //    if (reader.ReadingComplete)
-        //        throw new SyntaxException(reader, "Unexpected end of file");
-        //    while (!reader.LastKeyword.Equals(DefaultLanguageKeywords.ListEndSymbol))
-        //    {
-        //        InputDeclaration declaration = new InputDeclaration();
-        //        declaration.Setup(reader, scope);
-        //        if (reader.ReadingComplete)
-        //            throw new SyntaxException(reader, "Unexpected end of file");
-        //        ChildrenNodes.Add(declaration);
-        //        foreach (var kvp in declaration.ParametersMap)
-        //            ParametersMap.Add(kvp);
-        //    }
-        //    reader.ReadNext();
-        //}
-
         /// <summary>
         /// <see cref="ISyntaxTreeItem.Execute(ISourceReader, IExecutionScope)"/>
         /// </summary>
         public IScriptExecution Execute(ISourceReader reader, IExecutionScope scope)
         {
-            throw new NotImplementedException();
+            return new ScriptExecution(Exec(reader, scope));
         }
 
         /// <summary>
@@ -47,7 +22,37 @@ namespace HCEngine.Default.Language
         /// </summary>
         public bool IsStartOfNode(string word)
         {
-            throw new NotImplementedException();
+            return word.Equals(DefaultLanguageKeywords.ListBeginSymbol);
         }
+
+        private IEnumerator<object> Exec(ISourceReader reader, IExecutionScope scope)
+        {
+            if (reader.ReadingComplete)
+                throw new SyntaxException(reader, "Unexpected end of file");
+            if (!IsStartOfNode(reader.LastKeyword))
+                throw new SyntaxException(reader, "Lists should start with the list begin symbol.");
+            reader.ReadNext();
+            if (reader.ReadingComplete)
+                throw new SyntaxException(reader, "Unexpected end of file");
+
+            IDictionary<string, Type> parametersMap = new Dictionary<string, Type>();
+
+            while (!reader.LastKeyword.Equals(DefaultLanguageKeywords.ListEndSymbol))
+            {
+                InputDeclaration declaration = new InputDeclaration();
+                var exec = DefaultLanguageNodes.Declaration.Execute(reader, scope);
+                object o = exec.ExecuteNext();
+                var pmap = o as IDictionary<string, Type>;
+                if (reader.ReadingComplete)
+                    throw new SyntaxException(reader, "Unexpected end of file");
+                if (pmap == null)
+                    throw new SyntaxException(reader, "No parameters");
+                foreach (var kvp in pmap)
+                    parametersMap.Add(kvp);
+            }
+            reader.ReadNext();
+            yield return parametersMap;
+        }
+
     }
 }

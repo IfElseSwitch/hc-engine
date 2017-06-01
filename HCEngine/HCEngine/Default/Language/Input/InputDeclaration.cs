@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace HCEngine.Default.Language
 {
@@ -7,38 +8,12 @@ namespace HCEngine.Default.Language
     /// </summary>
     public class InputDeclaration : ISyntaxTreeItem
     {
-        ///// <summary>
-        ///// <see cref="ISyntaxTreeItem.Setup(ISourceReader, IExecutionScope)"/> 
-        ///// </summary>
-        //public override void Setup(ISourceReader reader, IExecutionScope scope)
-        //{
-        //    Variable v = new Variable();
-        //    v.Setup(reader, scope);
-        //    if (reader.ReadingComplete)
-        //        throw new SyntaxException(reader, "Unexpected end of file");
-        //    if (!reader.LastKeyword.Equals(DefaultLanguageKeywords.TypingKeyword))
-        //        throw new SyntaxException(reader, "In a declaration, the Typing keyword should follow the variable name.");
-        //    reader.ReadNext();
-        //    if (reader.ReadingComplete)
-        //        throw new SyntaxException(reader, "Unexpected end of file");
-        //    if (!scope.Contains(reader.LastKeyword) || !scope.IsOfType<Type>(reader.LastKeyword))
-        //        throw new SyntaxException(reader, string.Format("Unknown type {0}", reader.LastKeyword));
-        //    Type t = scope[reader.LastKeyword] as Type;
-        //    if (t == null)
-        //        throw new SyntaxException(reader, "Type resolving failed.");
-        //    ParametersMap.Add(v.Identifier, t);
-        //    reader.ReadNext();
-        //}
-
         /// <summary>
         /// <see cref="ISyntaxTreeItem.Execute(ISourceReader, IExecutionScope)"/>
         /// </summary>
-        /// <param name="reader"></param>
-        /// <param name="scope"></param>
-        /// <returns></returns>
         public IScriptExecution Execute(ISourceReader reader, IExecutionScope scope)
         {
-            throw new NotImplementedException();
+            return new ScriptExecution(Exec(reader, scope));
         }
 
         /// <summary>
@@ -46,7 +21,31 @@ namespace HCEngine.Default.Language
         /// </summary>
         public bool IsStartOfNode(string word)
         {
-            throw new NotImplementedException();
+            return DefaultLanguageNodes.Variable.IsStartOfNode(word);
         }
+
+        private IEnumerator<object> Exec(ISourceReader reader, IExecutionScope scope)
+        {
+            var exec = DefaultLanguageNodes.Variable.Execute(reader, scope);
+            IDictionary<string, Type> parametersMap = new Dictionary<string, Type>();
+            string id = exec.ExecuteNext() as string;
+            reader.ReadNext();
+            if (reader.ReadingComplete)
+                throw new SyntaxException(reader, "Unexpected end of file");
+            if (!reader.LastKeyword.Equals(DefaultLanguageKeywords.TypingKeyword))
+                throw new SyntaxException(reader, "In a declaration, the Typing keyword should follow the variable name.");
+            reader.ReadNext();
+            if (reader.ReadingComplete)
+                throw new SyntaxException(reader, "Unexpected end of file");
+            if (!scope.Contains(reader.LastKeyword) || !scope.IsOfType<Type>(reader.LastKeyword))
+                throw new SyntaxException(reader, string.Format("Unknown type {0}", reader.LastKeyword));
+            Type t = scope[reader.LastKeyword] as Type;
+            if (t == null)
+                throw new SyntaxException(reader, "Type resolving failed.");
+            parametersMap.Add(id, t);
+            reader.ReadNext();
+            yield return parametersMap;
+        }
+
     }
 }

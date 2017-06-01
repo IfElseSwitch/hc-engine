@@ -12,10 +12,9 @@ namespace HCEngine.Default.Language
         /// <summary>
         /// <see cref="ISyntaxTreeItem.Execute(ISourceReader, IExecutionScope)"/>
         /// </summary>
-        /// <remarks>As for all items in the input section, will do nothing and return null.</remarks>
         public IScriptExecution Execute(ISourceReader reader, IExecutionScope scope)
         {
-            return null;
+            return new ScriptExecution(Exec(reader, scope));
         }
 
         /// <summary>
@@ -23,27 +22,24 @@ namespace HCEngine.Default.Language
         /// </summary>
         public bool IsStartOfNode(string word)
         {
-            throw new NotImplementedException();
+            return word.Equals(DefaultLanguageKeywords.InputKeyword);
         }
 
-        //public void Setup(ISourceReader reader, IExecutionScope scope)
-        //{
-        //    if (reader.ReadingComplete)
-        //        throw new SyntaxException(reader, "Unexpected end of file");
-        //    if (!reader.LastKeyword.Equals(DefaultLanguageKeywords.InputKeyword))
-        //        throw new SyntaxException(reader, "Input sections should start with the input keyword");
-        //    reader.ReadNext();
-        //    if (reader.ReadingComplete)
-        //        throw new SyntaxException(reader, "Unexpected end of file");
-        //    AInputStatement statement = null;
-        //    if (reader.LastKeyword.Equals(DefaultLanguageKeywords.ListBeginSymbol))
-        //        statement = new DeclarationList();
-        //    else
-        //        statement = new InputDeclaration();
-        //    statement.Setup(reader, scope);
-        //    ChildrenNodes.Add(statement);
-        //    foreach (var kvp in statement.ParametersMap)
-        //        ParametersMap.Add(kvp);
-        //}
+        private IEnumerator<object> Exec(ISourceReader reader, IExecutionScope scope)
+        {
+            if (reader.ReadingComplete)
+                throw new SyntaxException(reader, "Unexpected end of file");
+            if (!reader.LastKeyword.Equals(DefaultLanguageKeywords.InputKeyword))
+                throw new SyntaxException(reader, "Input sections should start with the input keyword");
+            reader.ReadNext();
+            if (reader.ReadingComplete)
+                throw new SyntaxException(reader, "Unexpected end of file");
+            IDictionary<string, Type> parametersMap = new Dictionary<string, Type>();
+            var exec = DefaultLanguageNodes.InputStatement.Execute(reader, scope);
+            IDictionary<string, Type> pmap = exec.ExecuteNext() as IDictionary<string, Type>;
+            foreach (var kvp in pmap)
+                parametersMap.Add(kvp);
+            yield return parametersMap;
+        }
     }
 }

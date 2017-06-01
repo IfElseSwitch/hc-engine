@@ -44,9 +44,9 @@
     <Compile Include="Default\DefaultLanguageStructure.cs" />
     <Compile Include="Default\ExecutionScope.cs" />
     <Compile Include="Default\Language\DefaultLanguageKeywords.cs" />
-    <Compile Include="Default\Language\Input\AInputStatement.cs" />
+    <Compile Include="Default\Language\DefaultLanguageNodes.cs" />
+    <Compile Include="Default\Language\Input\InputStatement.cs" />
     <Compile Include="Default\Language\Input\DeclarationList.cs" />
-    <Compile Include="Default\Language\Input\IInput.cs" />
     <Compile Include="Default\Language\Input\InputDeclaration.cs" />
     <Compile Include="Default\Language\Input\InputSection.cs" />
     <Compile Include="Default\Language\Statements\Operation.cs" />
