@@ -9,27 +9,8 @@ namespace HCEngine.Default.Language
     /// </summary>
     public class DeclarationList : AInputStatement
     {
-        public override List<ISyntaxTreeItem> ChildrenNodes
-        {
-            get
-            {
-                throw new NotImplementedException();
-            }
-
-            set
-            {
-                throw new NotImplementedException();
-            }
-        }
-
-        public override IDictionary<string, Type> ParametersMap
-        {
-            get
-            {
-                throw new NotImplementedException();
-            }
-        }
-
+        public override List<ISyntaxTreeItem> ChildrenNodes { get; set; }
+        
         public override IScriptExecution Execute(IExecutionScope scope)
         {
             throw new NotImplementedException();
@@ -37,7 +18,21 @@ namespace HCEngine.Default.Language
 
         public override void Setup(ISourceReader reader, IExecutionScope scope)
         {
-            throw new NotImplementedException();
+            if (!reader.LastKeyword.Equals(DefaultLanguageKeywords.ListBeginSymbol))
+                throw new SyntaxException(reader, "Lists should start with the list begin symbol.");
+            reader.ReadNext();
+            if (reader.ReadingComplete)
+                throw new SyntaxException(reader, "Unexpected end of file");
+            while (!reader.LastKeyword.Equals(DefaultLanguageKeywords.ListEndSymbol))
+            {
+                InputDeclaration declaration = new InputDeclaration();
+                declaration.Setup(reader, scope);
+                if (reader.ReadingComplete)
+                    throw new SyntaxException(reader, "Unexpected end of file");
+                foreach (var kvp in declaration.ParametersMap)
+                    ParametersMap.Add(kvp);
+            }
+            reader.ReadNext();
         }
     }
 }
