@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace HCEngine.Default.Language
 {
@@ -22,7 +20,16 @@ namespace HCEngine.Default.Language
         /// </summary>
         public bool IsStartOfNode(string word, IExecutionScope scope)
         {
-            return true;
+            foreach (string id in scope.KnownIdentifiers)
+            {
+                if (!id.StartsWith("cr:"))
+                    continue;
+                IConstantReader cr = scope[id] as IConstantReader;
+                object res;
+                if (cr.Try(word, out res))
+                    return true;
+            }
+            return false;
         }
 
         private IEnumerator<object> Exec(ISourceReader reader, IExecutionScope scope)
