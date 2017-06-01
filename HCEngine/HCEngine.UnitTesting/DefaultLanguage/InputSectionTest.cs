@@ -63,22 +63,25 @@ namespace HCEngine.UnitTesting.DefaultLanguage
 
 
         void TestInput<TInput>(string code, bool expectError, IDictionary<string, Type> expectedParameters, string unexpectedName = null)
-            where TInput : IInput, ISyntaxTreeItem, new()
+            where TInput : ISyntaxTreeItem, new()
         {
             ISourceReader reader = new SourceReader();
             reader.Initialize(code);
             TInput tested = new TInput();
             try
             {
-                tested.Setup(reader, m_Scope);
+                var exec = tested.Execute(reader, m_Scope);
+                foreach (var o in exec)
+                    o.RemoveUnusedWarning();
+
                 Assert.IsFalse(expectError);
-                foreach (var kvp in expectedParameters)
-                {
-                    Assert.IsTrue(tested.ParametersMap.ContainsKey(kvp.Key));
-                    Assert.AreEqual(kvp.Value, tested.ParametersMap[kvp.Key]);
-                }
-                if (!string.IsNullOrEmpty(unexpectedName))
-                    Assert.IsFalse(tested.ParametersMap.ContainsKey(unexpectedName));
+                //foreach (var kvp in expectedParameters)
+                //{
+                //    Assert.IsTrue(tested.ParametersMap.ContainsKey(kvp.Key));
+                //    Assert.AreEqual(kvp.Value, tested.ParametersMap[kvp.Key]);
+                //}
+                //if (!string.IsNullOrEmpty(unexpectedName))
+                //    Assert.IsFalse(tested.ParametersMap.ContainsKey(unexpectedName));
             }
             catch (SyntaxException se)
             {

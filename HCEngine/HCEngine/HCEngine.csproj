@@ -49,8 +49,9 @@
     <Compile Include="Default\Language\Input\IInput.cs" />
     <Compile Include="Default\Language\Input\InputDeclaration.cs" />
     <Compile Include="Default\Language\Input\InputSection.cs" />
-    <Compile Include="Default\Language\Statements\AOperation.cs" />
-    <Compile Include="Default\Language\Statements\AStatement.cs" />
+    <Compile Include="Default\Language\Statements\Operation.cs" />
+    <Compile Include="Default\Language\Statements\Statement.cs" />
+    <Compile Include="Default\Language\Statements\Call.cs" />
     <Compile Include="Default\Language\Statements\Variable.cs" />
     <Compile Include="Default\ScopeFactory.cs" />
     <Compile Include="Default\ScriptExecution.cs" />
