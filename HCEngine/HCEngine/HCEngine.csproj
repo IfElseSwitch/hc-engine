@@ -56,7 +56,7 @@
     <Compile Include="Default\ScriptExecution.cs" />
     <Compile Include="Default\SourceReader.cs" />
     <Compile Include="Exceptions\ExecutionException.cs" />
-    <Compile Include="Exceptions\HGEngineException.cs" />
+    <Compile Include="Exceptions\HCEngineException.cs" />
     <Compile Include="Engine.cs" />
     <Compile Include="ExposedCallAttribute.cs" />
     <Compile Include="ExposedTypeAttribute.cs" />

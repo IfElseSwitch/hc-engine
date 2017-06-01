@@ -4,7 +4,7 @@
     /// Class for Syntax errors.
     /// Thrown when an error occurs during building of the syntax tree. 
     /// </summary>
-    public class SyntaxException : HGEngineException
+    public class SyntaxException : HCEngineException
     {
         const string c_ErrorType = "Syntax";
 

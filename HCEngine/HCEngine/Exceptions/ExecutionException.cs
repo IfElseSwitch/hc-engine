@@ -4,7 +4,7 @@
     /// Base class for Execution errors.
     /// Thrown when an error occurs during execution of the syntax tree.
     /// </summary>
-    public abstract class ExecutionException : HGEngineException
+    public abstract class ExecutionException : HCEngineException
     {
 
         /// <summary>
