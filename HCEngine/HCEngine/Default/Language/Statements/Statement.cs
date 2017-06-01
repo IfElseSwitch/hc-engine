@@ -7,12 +7,15 @@ namespace HCEngine.Default.Language
     /// <summary>
     /// Base class for statements
     /// </summary>
-    public abstract class Statement : ISyntaxTreeItem
+    public class Statement : ISyntaxTreeItem
     {
         /// <summary>
         /// <see cref="ISyntaxTreeItem.Execute(ISourceReader, IExecutionScope)"/> 
         /// </summary>
-        public abstract IScriptExecution Execute(ISourceReader reader, IExecutionScope scope);
+        public IScriptExecution Execute(ISourceReader reader, IExecutionScope scope)
+        {
+            throw new NotImplementedException();
+        }
 
         /// <summary>
         /// <see cref="ISyntaxTreeItem.IsStartOfNode(string, IExecutionScope)"/>
