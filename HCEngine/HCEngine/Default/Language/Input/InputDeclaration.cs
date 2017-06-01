@@ -5,7 +5,7 @@ namespace HCEngine.Default.Language
     /// <summary>
     /// Class representing a single Input declaration.
     /// </summary>
-    public class InputDeclaration : AInputStatement
+    public class InputDeclaration : ISyntaxTreeItem
     {
         ///// <summary>
         ///// <see cref="ISyntaxTreeItem.Setup(ISourceReader, IExecutionScope)"/> 
@@ -36,7 +36,15 @@ namespace HCEngine.Default.Language
         /// <param name="reader"></param>
         /// <param name="scope"></param>
         /// <returns></returns>
-        public override IScriptExecution Execute(ISourceReader reader, IExecutionScope scope)
+        public IScriptExecution Execute(ISourceReader reader, IExecutionScope scope)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// <see cref="ISyntaxTreeItem.IsStartOfNode(string)"/>
+        /// </summary>
+        public bool IsStartOfNode(string word)
         {
             throw new NotImplementedException();
         }

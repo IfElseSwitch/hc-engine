@@ -7,7 +7,7 @@ namespace HCEngine.Default.Language
     /// <summary>
     /// Class representing a List of declarations.
     /// </summary>
-    public class DeclarationList : AInputStatement
+    public class DeclarationList : ISyntaxTreeItem
     {
 
 
@@ -37,7 +37,15 @@ namespace HCEngine.Default.Language
         /// <summary>
         /// <see cref="ISyntaxTreeItem.Execute(ISourceReader, IExecutionScope)"/>
         /// </summary>
-        public override IScriptExecution Execute(ISourceReader reader, IExecutionScope scope)
+        public IScriptExecution Execute(ISourceReader reader, IExecutionScope scope)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// <see cref="ISyntaxTreeItem.IsStartOfNode(string)"/>
+        /// </summary>
+        public bool IsStartOfNode(string word)
         {
             throw new NotImplementedException();
         }

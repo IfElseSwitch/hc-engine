@@ -7,19 +7,22 @@ namespace HCEngine.Default.Language
     /// <summary>
     /// Base class representing input statements
     /// </summary>
-    public abstract class AInputStatement : ISyntaxTreeItem, IInput
+    public class AInputStatement : ISyntaxTreeItem
     {
-        private IDictionary<string, Type> m_Parameters = new Dictionary<string, Type>();
-        
-        /// <summary>
-        /// <see cref="IInput.ParametersMap"/> 
-        /// </summary>
-        public IDictionary<string, Type> ParametersMap { get { return m_Parameters; } }
-
         /// <summary>
         /// <see cref="ISyntaxTreeItem.Execute(ISourceReader, IExecutionScope)"/>
         /// </summary>
-        public abstract IScriptExecution Execute(ISourceReader reader, IExecutionScope scope);
-        
+        public IScriptExecution Execute(ISourceReader reader, IExecutionScope scope)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// <see cref="ISyntaxTreeItem.IsStartOfNode(string)"/>
+        /// </summary>
+        public bool IsStartOfNode(string word)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

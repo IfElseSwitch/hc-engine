@@ -16,5 +16,12 @@ namespace HCEngine
         /// <param name="scope">Scope of execution for calls and variables.</param>
         /// <returns>The execution object to control the execution.</returns>
         IScriptExecution Execute(ISourceReader reader, IExecutionScope scope);
+
+        /// <summary>
+        /// Checks if the given word indicates the node type.
+        /// </summary>
+        /// <param name="word">Word to test</param>
+        /// <returns>true if the word should be interpreted, false otherwise.</returns>
+        bool IsStartOfNode(string word);
     }
 }

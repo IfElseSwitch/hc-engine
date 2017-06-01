@@ -18,6 +18,14 @@ namespace HCEngine.Default.Language
             throw new NotImplementedException();
         }
 
+        /// <summary>
+        /// <see cref="ISyntaxTreeItem.IsStartOfNode(string)"/>
+        /// </summary>
+        public bool IsStartOfNode(string word)
+        {
+            throw new NotImplementedException();
+        }
+
         //public override void Execute(ISourceReader reader, IExecutionScope scope)
         //{
         //    if (reader.ReadingComplete)

@@ -17,12 +17,20 @@ namespace HCEngine.Default.Language
             return new ScriptExecution(Exec(reader, scope));
         }
 
+        /// <summary>
+        /// <see cref="ISyntaxTreeItem.IsStartOfNode(string)"/>
+        /// </summary>
+        public bool IsStartOfNode(string word)
+        {
+            return word.StartsWith(DefaultLanguageKeywords.VariableFirstSymbol);
+        }
+
         IEnumerator<object> Exec(ISourceReader reader, IExecutionScope scope)
         {
             if (reader.ReadingComplete)
                 throw new SyntaxException(reader, "Unexpected end of file");
             string word = reader.LastKeyword;
-            if (!word.StartsWith(DefaultLanguageKeywords.VariableFirstSymbol))
+            if (!IsStartOfNode(word))
                 throw new SyntaxException(reader, "Variable name does not start with $");
             string identifier = word;
             yield return identifier;
@@ -38,25 +46,5 @@ namespace HCEngine.Default.Language
             reader.ReadNext();
             yield return value;
         }
-
-        ///// <summary>
-        ///// <see cref="ISyntaxTreeItem.Execute(IExecutionScope)"/> 
-        ///// </summary>
-        //public override IScriptExecution Execute(IExecutionScope scope)
-        //{
-        //    return new ScriptExecution(Exec(scope));
-        //}
-
-        ///// <summary>
-        ///// <see cref="ISyntaxTreeItem.Setup(ISourceReader, IExecutionScope)"/>
-        ///// </summary>
-        //public override void Setup(ISourceReader reader, IExecutionScope scope)
-        //{
-        //}
-
-        //IEnumerator<object> Exec(IExecutionScope scope)
-        //{
-        //    yield return scope[Identifier];
-        //}
     }
 }

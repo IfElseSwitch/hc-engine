@@ -13,5 +13,13 @@ namespace HCEngine.Default.Language
         /// <see cref="ISyntaxTreeItem.Execute(ISourceReader, IExecutionScope)"/> 
         /// </summary>
         public abstract IScriptExecution Execute(ISourceReader reader, IExecutionScope scope);
+
+        /// <summary>
+        /// <see cref="ISyntaxTreeItem.IsStartOfNode(string)"/>
+        /// </summary>
+        public bool IsStartOfNode(string word)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
