@@ -8,22 +8,34 @@ namespace HCEngine.Default.Language
     /// <summary>
     /// Base class for Operation item
     /// </summary>
-    public abstract class AOperation : ISyntaxTreeItem
+    public class Operation : ISyntaxTreeItem
     {
         /// <summary>
         /// <see cref="ISyntaxTreeItem.Execute(ISourceReader, IExecutionScope)"/>
         /// </summary>
         public IScriptExecution Execute(ISourceReader reader, IExecutionScope scope)
         {
-            throw new NotImplementedException();
+            string word = reader.LastKeyword;
+            if (DefaultLanguageNodes.Call.IsStartOfNode(word, scope))
+                return DefaultLanguageNodes.Call.Execute(reader, scope);
+
+            if (DefaultLanguageNodes.Variable.IsStartOfNode(word, scope))
+                return DefaultLanguageNodes.Variable.Execute(reader, scope);
+
+            if (DefaultLanguageNodes.Constant.IsStartOfNode(word, scope))
+                return DefaultLanguageNodes.Constant.Execute(reader, scope);
+
+            throw new SyntaxException(reader, "Not recognized as operation");
         }
 
         /// <summary>
-        /// <see cref="ISyntaxTreeItem.IsStartOfNode(string)"/>
+        /// <see cref="ISyntaxTreeItem.IsStartOfNode(string, IExecutionScope)"/>
         /// </summary>
-        public bool IsStartOfNode(string word)
+        public bool IsStartOfNode(string word, IExecutionScope scope)
         {
-            throw new NotImplementedException();
+            return DefaultLanguageNodes.Call.IsStartOfNode(word, scope) ||
+                DefaultLanguageNodes.Variable.IsStartOfNode(word, scope) ||
+                DefaultLanguageNodes.Constant.IsStartOfNode(word, scope);
         }
     }
 }

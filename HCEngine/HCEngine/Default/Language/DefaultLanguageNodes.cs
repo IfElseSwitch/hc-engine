@@ -22,6 +22,11 @@ namespace HCEngine.Default.Language
         public static ISyntaxTreeItem ListOfDeclarations { get; set; } = new DeclarationList();
 
         /// <summary>
+        /// Syntax node to use to read operations
+        /// </summary>
+        public static ISyntaxTreeItem Operation { get; set; } = new Operation();
+
+        /// <summary>
         /// Syntax node to use to read variables.
         /// </summary>
         public static ISyntaxTreeItem Variable { get; set; } = new Variable();

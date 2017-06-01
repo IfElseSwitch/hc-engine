@@ -18,9 +18,9 @@ namespace HCEngine.Default.Language
         }
 
         /// <summary>
-        /// <see cref="ISyntaxTreeItem.IsStartOfNode(string)"/>
+        /// <see cref="ISyntaxTreeItem.IsStartOfNode(string, IExecutionScope)"/>
         /// </summary>
-        public bool IsStartOfNode(string word)
+        public bool IsStartOfNode(string word, IExecutionScope scope)
         {
             return true;
         }
@@ -36,6 +36,7 @@ namespace HCEngine.Default.Language
                 IConstantReader cr = scope[id] as IConstantReader;
                 if (cr.Try(word, out res))
                     break;
+                res = null;
             }
             if (res == null)
                 throw new SyntaxException(reader, string.Format("Unrecognized word : {0}", word));

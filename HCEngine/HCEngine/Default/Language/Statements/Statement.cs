@@ -15,9 +15,9 @@ namespace HCEngine.Default.Language
         public abstract IScriptExecution Execute(ISourceReader reader, IExecutionScope scope);
 
         /// <summary>
-        /// <see cref="ISyntaxTreeItem.IsStartOfNode(string)"/>
+        /// <see cref="ISyntaxTreeItem.IsStartOfNode(string, IExecutionScope)"/>
         /// </summary>
-        public bool IsStartOfNode(string word)
+        public bool IsStartOfNode(string word, IExecutionScope scope)
         {
             throw new NotImplementedException();
         }

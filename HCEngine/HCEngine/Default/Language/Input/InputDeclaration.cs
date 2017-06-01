@@ -17,11 +17,11 @@ namespace HCEngine.Default.Language
         }
 
         /// <summary>
-        /// <see cref="ISyntaxTreeItem.IsStartOfNode(string)"/>
+        /// <see cref="ISyntaxTreeItem.IsStartOfNode(string, IExecutionScope)"/>
         /// </summary>
-        public bool IsStartOfNode(string word)
+        public bool IsStartOfNode(string word, IExecutionScope scope)
         {
-            return DefaultLanguageNodes.Variable.IsStartOfNode(word);
+            return DefaultLanguageNodes.Variable.IsStartOfNode(word, scope);
         }
 
         private IEnumerator<object> Exec(ISourceReader reader, IExecutionScope scope)

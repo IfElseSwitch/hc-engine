@@ -18,9 +18,9 @@ namespace HCEngine.Default.Language
         }
 
         /// <summary>
-        /// <see cref="ISyntaxTreeItem.IsStartOfNode(string)"/>
+        /// <see cref="ISyntaxTreeItem.IsStartOfNode(string, IExecutionScope)"/>
         /// </summary>
-        public bool IsStartOfNode(string word)
+        public bool IsStartOfNode(string word, IExecutionScope scope)
         {
             return word.StartsWith(DefaultLanguageKeywords.VariableFirstSymbol);
         }
@@ -30,7 +30,7 @@ namespace HCEngine.Default.Language
             if (reader.ReadingComplete)
                 throw new SyntaxException(reader, "Unexpected end of file");
             string word = reader.LastKeyword;
-            if (!IsStartOfNode(word))
+            if (!IsStartOfNode(word, scope))
                 throw new SyntaxException(reader, "Variable name does not start with $");
             string identifier = word;
             yield return identifier;

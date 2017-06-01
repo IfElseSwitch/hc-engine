@@ -21,7 +21,8 @@ namespace HCEngine
         /// Checks if the given word indicates the node type.
         /// </summary>
         /// <param name="word">Word to test</param>
+        /// <param name="scope">current scope</param>
         /// <returns>true if the word should be interpreted, false otherwise.</returns>
-        bool IsStartOfNode(string word);
+        bool IsStartOfNode(string word, IExecutionScope scope);
     }
 }

@@ -18,9 +18,9 @@ namespace HCEngine.Default.Language
         }
 
         /// <summary>
-        /// <see cref="ISyntaxTreeItem.IsStartOfNode(string)"/>
+        /// <see cref="ISyntaxTreeItem.IsStartOfNode(string, IExecutionScope)"/>
         /// </summary>
-        public bool IsStartOfNode(string word)
+        public bool IsStartOfNode(string word, IExecutionScope scope)
         {
             return word.Equals(DefaultLanguageKeywords.ListBeginSymbol);
         }
@@ -29,7 +29,7 @@ namespace HCEngine.Default.Language
         {
             if (reader.ReadingComplete)
                 throw new SyntaxException(reader, "Unexpected end of file");
-            if (!IsStartOfNode(reader.LastKeyword))
+            if (!IsStartOfNode(reader.LastKeyword, scope))
                 throw new SyntaxException(reader, "Lists should start with the list begin symbol.");
             reader.ReadNext();
             if (reader.ReadingComplete)
