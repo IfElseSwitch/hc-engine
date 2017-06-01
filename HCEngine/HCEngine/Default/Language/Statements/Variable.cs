@@ -10,23 +10,6 @@ namespace HCEngine.Default.Language.Statements
     public class Variable : AOperation
     {
         /// <summary>
-        /// Default constructor
-        /// </summary>
-        public Variable()
-        {
-            ChildrenNodes = new List<ISyntaxTreeItem>();
-        }
-
-        /// <summary>
-        /// <see cref="ISyntaxTreeItem.ChildrenNodes"/> 
-        /// </summary>
-        /// <remarks>In this case, the list will always be empty.</remarks>
-        public override List<ISyntaxTreeItem> ChildrenNodes
-        {
-            get; set;
-        }
-
-        /// <summary>
         /// Identifier of the variable in the scope.
         /// </summary>
         public string Identifier { get; private set; }

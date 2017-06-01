@@ -12,7 +12,7 @@ namespace HCEngine.Default.Language
         /// <summary>
         /// <see cref="ISyntaxTreeItem.ChildrenNodes"/>
         /// </summary>
-        public abstract List<ISyntaxTreeItem> ChildrenNodes { get; set; }
+        public List<ISyntaxTreeItem> ChildrenNodes { get; set; } = new List<ISyntaxTreeItem>();
 
         /// <summary>
         /// <see cref="ISyntaxTreeItem.Execute(IExecutionScope)"/>
