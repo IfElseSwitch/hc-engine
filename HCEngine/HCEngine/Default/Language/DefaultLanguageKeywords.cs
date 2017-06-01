@@ -34,5 +34,30 @@ namespace HCEngine.Default.Language
         /// Keyword for declaring an input section.
         /// </summary>
         public static string InputKeyword { get; set; } = "input";
+
+        /// <summary>
+        /// Keyword for declaring a loop.
+        /// </summary>
+        public static string LoopKeyword { get; set; } = "loop";
+
+        /// <summary>
+        /// Keyword for declaring a while loop.
+        /// </summary>
+        public static string WhileKeyword { get; set; } = "while";
+
+        /// <summary>
+        /// Keyword for declaring a each loop.
+        /// </summary>
+        public static string EachKeyword { get; set; } = "in";
+
+        /// <summary>
+        /// Keyword for declaring a if section.
+        /// </summary>
+        public static string IfKeyword { get; set; } = "if";
+
+        /// <summary>
+        /// Keyword for declaring a else block of a if section.
+        /// </summary>
+        public static string ElseKeyword { get; set; } = "else";
     }
 }
