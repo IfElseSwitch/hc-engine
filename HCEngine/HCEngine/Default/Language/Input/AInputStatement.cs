@@ -15,6 +15,6 @@ namespace HCEngine.Default.Language
 
         public abstract IScriptExecution Execute(IExecutionScope scope);
 
-        public abstract void Setup(ISourceReader reader);
+        public abstract void Setup(ISourceReader reader, IExecutionScope scope);
     }
 }

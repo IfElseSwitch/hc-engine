@@ -7,7 +7,7 @@ namespace HCEngine.Default.Language
     /// <summary>
     /// Class representing an Input section.
     /// </summary>
-    public class InputSection : ISyntaxTreeItem
+    public class InputSection : ISyntaxTreeItem, IInput
     {
         public List<ISyntaxTreeItem> ChildrenNodes
         {
@@ -22,12 +22,20 @@ namespace HCEngine.Default.Language
             }
         }
 
+        public IDictionary<string, Type> ParametersMap
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+        }
+
         public IScriptExecution Execute(IExecutionScope scope)
         {
             throw new NotImplementedException();
         }
 
-        public void Setup(ISourceReader reader)
+        public void Setup(ISourceReader reader, IExecutionScope scope)
         {
             throw new NotImplementedException();
         }

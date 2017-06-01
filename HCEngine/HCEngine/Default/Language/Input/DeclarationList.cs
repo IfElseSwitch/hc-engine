@@ -35,7 +35,7 @@ namespace HCEngine.Default.Language
             throw new NotImplementedException();
         }
 
-        public override void Setup(ISourceReader reader)
+        public override void Setup(ISourceReader reader, IExecutionScope scope)
         {
             throw new NotImplementedException();
         }
