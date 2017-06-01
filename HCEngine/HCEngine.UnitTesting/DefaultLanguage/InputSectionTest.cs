@@ -7,7 +7,19 @@ using HCEngine.Default.Language;
 namespace HCEngine.UnitTesting.DefaultLanguage
 {
     [ExposedType(LinkToType =typeof(int), NameOverride = "Int")]
-    public class IntLink { }
+    public class IntLink
+    {
+        class IntReader : IConstantReader
+        {
+            public bool Try(string word, out object instance)
+            {
+                int i;
+                bool res = int.TryParse(word, out i);
+                instance = i;
+                return res;
+            }
+        }
+    }
 
     [TestClass]
     public class InputSectionTest

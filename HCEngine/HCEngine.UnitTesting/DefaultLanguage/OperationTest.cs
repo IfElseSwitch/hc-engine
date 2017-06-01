@@ -5,20 +5,36 @@ using HCEngine.Default.Language;
 
 namespace HCEngine.UnitTesting.DefaultLanguage
 {
+    
     [TestClass]
     public class OperationTest
     {
         IExecutionScope m_Scope = new ScopeFactory().MakeScope();
 
+        [ExposedCall(NameOverride = "testcall")]
+        public static string TestCallMethod() { return "OK"; }
+
+        [ExposedCall(NameOverride = "testargs")]
+        public static int TestArgs(int arg) { return arg; }
+
         [TestMethod]
         public void TestConstant()
         {
+            TestOperation<Constant>("1", false, 1, null);
+            TestOperation<Constant>("\"the cat\"", false, 1, null);
+            TestOperation<Constant>("[wrong]", true, null, typeof(SyntaxException));
         }
 
         [TestMethod]
         public void TestCall()
         {
-
+            m_Scope["$x"] = 1;
+            TestOperation<Call>("testcall", false, "OK", null);
+            TestOperation<Call>("testargs $x", false, 1, null);
+            TestOperation<Call>("testwrong", true, null, typeof(ScopeException));
+            TestOperation<Call>("testcall $x", false, "OK", null);
+            TestOperation<Call>("testargs", true, null, typeof(SyntaxException));
+            TestOperation<Call>("testargs 2", false, 2, null);
         }
 
         [TestMethod]

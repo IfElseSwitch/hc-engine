@@ -49,6 +49,7 @@
     <Compile Include="Default\Language\Input\DeclarationList.cs" />
     <Compile Include="Default\Language\Input\InputDeclaration.cs" />
     <Compile Include="Default\Language\Input\InputSection.cs" />
+    <Compile Include="Default\Language\Statements\Constant.cs" />
     <Compile Include="Default\Language\Statements\Operation.cs" />
     <Compile Include="Default\Language\Statements\Statement.cs" />
     <Compile Include="Default\Language\Statements\Call.cs" />

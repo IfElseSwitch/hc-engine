@@ -16,10 +16,10 @@ namespace HCEngine.UnitTesting.EngineCore
     [ExposedType(LinkToType = typeof(bool), NameOverride = "BoolType")]
     public class FourthType { }
 
-    [ExposedType(LinkToType = typeof(string), NameOverride = "StringType", ConstantReaderType = typeof(FifthType.ConstantReader))]
-    public class FifthType
+    [ExposedType(LinkToType = typeof(string), NameOverride = "String", ConstantReaderType = typeof(StringReader))]
+    public class StringLink
     {
-        class ConstantReader : IConstantReader
+        class StringReader : IConstantReader
         {
             public bool Try(string word, out object instance)
             {
@@ -86,14 +86,14 @@ namespace HCEngine.UnitTesting.EngineCore
             Assert.IsNotNull(t);
             Assert.AreEqual(typeof(bool), t);
 
-            Assert.IsFalse(scope.Contains("FifthType"));
-            Assert.IsTrue(scope.Contains("StringType"));
-            Assert.IsTrue(scope.IsOfType<Type>("StringType"));
-            t = scope["StringType"] as Type;
+            Assert.IsFalse(scope.Contains("StringLink"));
+            Assert.IsTrue(scope.Contains("String"));
+            Assert.IsTrue(scope.IsOfType<Type>("String"));
+            t = scope["String"] as Type;
             Assert.IsNotNull(t);
             Assert.AreEqual(typeof(string), t);
-            Assert.IsTrue(scope.Contains("cr:StringType"));
-            IConstantReader cr = scope["cr:StringType"] as IConstantReader;
+            Assert.IsTrue(scope.Contains("cr:String"));
+            IConstantReader cr = scope["cr:String"] as IConstantReader;
             Assert.IsNotNull(cr);
             object res;
             Assert.IsTrue(cr.Try("\"test\"", out res));
