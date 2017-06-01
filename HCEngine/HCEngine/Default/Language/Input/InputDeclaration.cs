@@ -10,18 +10,18 @@ namespace HCEngine.Default.Language
     /// </summary>
     public class InputDeclaration : AInputStatement
     {
-        public InputDeclaration()
-        {
-            ChildrenNodes = new List<ISyntaxTreeItem>();
-        }
-        
-        public override List<ISyntaxTreeItem> ChildrenNodes {  get; set; }
-        
+        /// <summary>
+        /// <see cref="ISyntaxTreeItem.Execute(IExecutionScope)"/>
+        /// </summary>
+        /// <remarks>As for all items in the input section, will do nothing and return null.</remarks>
         public override IScriptExecution Execute(IExecutionScope scope)
         {
-            throw new NotImplementedException();
+            return null;
         }
 
+        /// <summary>
+        /// <see cref="ISyntaxTreeItem.Setup(ISourceReader, IExecutionScope)"/> 
+        /// </summary>
         public override void Setup(ISourceReader reader, IExecutionScope scope)
         {
             Variable v = new Variable();

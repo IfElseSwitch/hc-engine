@@ -9,13 +9,18 @@ namespace HCEngine.Default.Language
     /// </summary>
     public class DeclarationList : AInputStatement
     {
-        public override List<ISyntaxTreeItem> ChildrenNodes { get; set; }
-        
+        /// <summary>
+        /// <see cref="ISyntaxTreeItem.Execute(IExecutionScope)"/>
+        /// </summary>
+        /// <remarks>As for all items in the input section, will do nothing and return null.</remarks>
         public override IScriptExecution Execute(IExecutionScope scope)
         {
-            throw new NotImplementedException();
+            return null;
         }
 
+        /// <summary>
+        /// <see cref="ISyntaxTreeItem.Setup(ISourceReader, IExecutionScope)"/>
+        /// </summary>
         public override void Setup(ISourceReader reader, IExecutionScope scope)
         {
             if (!reader.LastKeyword.Equals(DefaultLanguageKeywords.ListBeginSymbol))
@@ -29,6 +34,7 @@ namespace HCEngine.Default.Language
                 declaration.Setup(reader, scope);
                 if (reader.ReadingComplete)
                     throw new SyntaxException(reader, "Unexpected end of file");
+                ChildrenNodes.Add(declaration);
                 foreach (var kvp in declaration.ParametersMap)
                     ParametersMap.Add(kvp);
             }

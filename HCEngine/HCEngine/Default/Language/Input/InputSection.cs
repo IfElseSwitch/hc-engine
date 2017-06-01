@@ -9,19 +9,14 @@ namespace HCEngine.Default.Language
     /// </summary>
     public class InputSection : ISyntaxTreeItem, IInput
     {
-        public List<ISyntaxTreeItem> ChildrenNodes
-        {
-            get
-            {
-                throw new NotImplementedException();
-            }
+        /// <summary>
+        /// <see cref="ISyntaxTreeItem.ChildrenNodes"/>
+        /// </summary>
+        public List<ISyntaxTreeItem> ChildrenNodes { get; set; } = new List<ISyntaxTreeItem>();
 
-            set
-            {
-                throw new NotImplementedException();
-            }
-        }
-
+        /// <summary>
+        /// <see cref="IInput.ParametersMap"/>
+        /// </summary>
         public IDictionary<string, Type> ParametersMap
         {
             get
@@ -30,11 +25,20 @@ namespace HCEngine.Default.Language
             }
         }
 
+        /// <summary>
+        /// <see cref="ISyntaxTreeItem.Execute(IExecutionScope)"/>
+        /// </summary>
+        /// <remarks>As for all items in the input section, will do nothing and return null.</remarks>
         public IScriptExecution Execute(IExecutionScope scope)
         {
-            throw new NotImplementedException();
+            return null;
         }
 
+        /// <summary>
+        /// <see cref="ISyntaxTreeItem.Setup(ISourceReader, IExecutionScope)"/>
+        /// </summary>
+        /// <param name="reader"></param>
+        /// <param name="scope"></param>
         public void Setup(ISourceReader reader, IExecutionScope scope)
         {
             throw new NotImplementedException();

@@ -8,6 +8,10 @@ namespace HCEngine.Default
     /// </summary>
     public class ScopeFactory : IScopeFactory
     {
+        /// <summary>
+        /// Creates the default scope and fills its with all Exposed calls and types in the loaded assemblies.
+        /// </summary>
+        /// <returns>Initialized default scope</returns>
         public IExecutionScope MakeScope()
         {
             IExecutionScope scope = new ExecutionScope();
