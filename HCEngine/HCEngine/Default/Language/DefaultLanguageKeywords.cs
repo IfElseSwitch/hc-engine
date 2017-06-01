@@ -29,5 +29,10 @@ namespace HCEngine.Default.Language
         /// Keyword for declaring a variable's type.
         /// </summary>
         public static string TypingKeyword { get; set; } = "is";
+
+        /// <summary>
+        /// Keyword for declaring an input section.
+        /// </summary>
+        public static string InputKeyword { get; set; } = "input";
     }
 }

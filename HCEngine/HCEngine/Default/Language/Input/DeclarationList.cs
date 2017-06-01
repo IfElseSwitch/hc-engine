@@ -23,6 +23,8 @@ namespace HCEngine.Default.Language
         /// </summary>
         public override void Setup(ISourceReader reader, IExecutionScope scope)
         {
+            if (reader.ReadingComplete)
+                throw new SyntaxException(reader, "Unexpected end of file");
             if (!reader.LastKeyword.Equals(DefaultLanguageKeywords.ListBeginSymbol))
                 throw new SyntaxException(reader, "Lists should start with the list begin symbol.");
             reader.ReadNext();
