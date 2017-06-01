@@ -13,7 +13,7 @@ namespace HCEngine.Default.Language
         /// </summary>
         public IScriptExecution Execute(ISourceReader reader, IExecutionScope scope, bool skipExec)
         {
-            return new ScriptExecution(Exec(reader, scope));
+            return new ScriptExecution(Exec(reader, scope, skipExec));
         }
 
         /// <summary>
@@ -24,7 +24,7 @@ namespace HCEngine.Default.Language
             return word.Equals(DefaultLanguageKeywords.IfKeyword);
         }
 
-        private IEnumerator<object> Exec(ISourceReader reader, IExecutionScope scope)
+        private IEnumerator<object> Exec(ISourceReader reader, IExecutionScope scope, bool skipExec)
         {
             throw new NotImplementedException();
         }
