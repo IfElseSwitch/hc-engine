@@ -5,9 +5,9 @@ using System.Text;
 namespace HCEngine.Default.Language
 {
     /// <summary>
-    /// Base class for statements
+    /// Class to execute sections
     /// </summary>
-    public class Statement : ISyntaxTreeItem
+    public class Section : ISyntaxTreeItem
     {
         /// <summary>
         /// <see cref="ISyntaxTreeItem.Execute(ISourceReader, IExecutionScope)"/> 
@@ -18,13 +18,11 @@ namespace HCEngine.Default.Language
         }
 
         /// <summary>
-        /// <see cref="ISyntaxTreeItem.IsStartOfNode(string, IExecutionScope)"/>
+        /// <see cref="ISyntaxTreeItem.IsStartOfNode(string, IExecutionScope)"/> 
         /// </summary>
         public bool IsStartOfNode(string word, IExecutionScope scope)
         {
-            return DefaultLanguageNodes.ListOfStatements.IsStartOfNode(word, scope) ||
-                DefaultLanguageNodes.Section.IsStartOfNode(word, scope) ||
-                DefaultLanguageNodes.Operation.IsStartOfNode(word, scope);
+            throw new NotImplementedException();
         }
     }
 }
