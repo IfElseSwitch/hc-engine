@@ -15,53 +15,45 @@ namespace HCEngine.Default.Language
         /// </summary>
         public IScriptExecution Execute(ISourceReader reader, IExecutionScope scope)
         {
-            throw new NotImplementedException();
+            return new ScriptExecution(Exec(reader, scope));
         }
 
         /// <summary>
-        /// <see cref="ISyntaxTreeItem.IsStartOfNode(string)"/>
+        /// <see cref="ISyntaxTreeItem.IsStartOfNode(string, IExecutionScope)"/>
         /// </summary>
-        public bool IsStartOfNode(string word)
+        public bool IsStartOfNode(string word, IExecutionScope scope)
         {
-            throw new NotImplementedException();
+            return scope.Contains(word) && scope.IsOfType<MethodInfo>(word);
         }
 
-        //public override void Execute(ISourceReader reader, IExecutionScope scope)
-        //{
-        //    if (reader.ReadingComplete)
-        //        throw new SyntaxException(reader, "Unexpected end of file");
-        //    string word = reader.LastKeyword;
-        //    m_Method = scope[word] as MethodInfo;
-        //    if (m_Method == null)
-        //        throw new SyntaxException(reader, string.Format("{0} is not a call", word));
-        //    reader.ReadNext();
-        //    m_Parameters = new List<AOperation>();
-        //    foreach (var param in m_Method.GetParameters())
-        //    {
-        //        m_Parameters.Add(null);
-        //    }
-        //}
-
-
-        //IEnumerator<object> Exec(IExecutionScope scope)
-        //{
-        //    object[] args = new object[m_Parameters.Count];
-        //    ParameterInfo[] expected = m_Method.GetParameters();
-        //    int i = 0;
-        //    foreach (AOperation op in m_Parameters)
-        //    {
-        //        IScriptExecution exec = op.Execute(scope);
-        //        object lastValue = null;
-        //        foreach(object o in exec)
-        //        {
-        //            lastValue = o;
-        //            yield return o;
-        //        }
-        //        if (!expected[i].ParameterType.IsAssignableFrom(lastValue.GetType()))
-        //            throw new OperationException("", 0, 0, string.Format("Wrong parameter for argument {0} of call {1}", i, m_Method.Name));
-        //        args[i++] = lastValue;
-        //    }
-        //    yield return m_Method.Invoke(null, args);
-        //}
+        private IEnumerator<object> Exec(ISourceReader reader, IExecutionScope scope)
+        {
+            if (reader.ReadingComplete)
+                throw new SyntaxException(reader, "Unexpected end of file");
+            string word = reader.LastKeyword;
+            var method = scope[word] as MethodInfo;
+            if (method == null)
+                throw new SyntaxException(reader, string.Format("{0} is not a call", word));
+            reader.ReadNext();
+            var parameters = method.GetParameters();
+            object[] args = new object[parameters.Length];
+            int i = 0;
+            foreach (var param in parameters)
+            {
+                if (reader.ReadingComplete)
+                    throw new SyntaxException(reader, "Unexpected end of file");
+                var exec = DefaultLanguageNodes.Operation.Execute(reader, scope);
+                object lastValue = null;
+                foreach(object o in exec)
+                {
+                    lastValue = o;
+                    yield return o;
+                }
+                if (!param.ParameterType.IsAssignableFrom(lastValue.GetType()))
+                    throw new OperationException(reader, string.Format("Wrong parameter for argument {0} of call {1}", param.Name, method.Name));
+                args[i++] = lastValue;
+            }
+            yield return method.Invoke(null, args);
+        }
     }
 }
