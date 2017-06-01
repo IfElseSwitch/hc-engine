@@ -95,6 +95,10 @@ namespace HCEngine.Default
                 name = name.Split('\'')[0];
             }
             scope[name] = type;
+            if (exposed.ConstantReaderType != null)
+            {
+                scope[string.Format("cr:{0}", name)] = ExposedTypeAttribute.ResolveConstantReader(exposed);
+            }
         }
     }
 }

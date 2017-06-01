@@ -16,6 +16,23 @@ namespace HCEngine.UnitTesting.EngineCore
     [ExposedType(LinkToType = typeof(bool), NameOverride = "BoolType")]
     public class FourthType { }
 
+    [ExposedType(LinkToType = typeof(string), NameOverride = "StringType", ConstantReaderType = typeof(FifthType.ConstantReader))]
+    public class FifthType
+    {
+        class ConstantReader : IConstantReader
+        {
+            public bool Try(string word, out object instance)
+            {
+                instance = null;
+                if (!word.StartsWith("\"") || !word.EndsWith("\""))
+                    return false;
+                instance = word.Substring(1,word.Length - 2);
+                return true;
+            }
+        }
+    }
+
+
     [TestClass]
     public class ScopeFactoryTest
     {
@@ -68,6 +85,20 @@ namespace HCEngine.UnitTesting.EngineCore
             t = scope["BoolType"] as Type;
             Assert.IsNotNull(t);
             Assert.AreEqual(typeof(bool), t);
+
+            Assert.IsFalse(scope.Contains("FifthType"));
+            Assert.IsTrue(scope.Contains("StringType"));
+            Assert.IsTrue(scope.IsOfType<Type>("StringType"));
+            t = scope["StringType"] as Type;
+            Assert.IsNotNull(t);
+            Assert.AreEqual(typeof(string), t);
+            Assert.IsTrue(scope.Contains("cr:StringType"));
+            IConstantReader cr = scope["cr:StringType"] as IConstantReader;
+            Assert.IsNotNull(cr);
+            object res;
+            Assert.IsTrue(cr.Try("\"test\"", out res));
+            Assert.AreEqual("test", res);
+
         }
 
         [ExposedCall]
