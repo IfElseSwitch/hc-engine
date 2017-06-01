@@ -49,7 +49,7 @@ namespace HCEngine.Default.Language
                     lastValue = o;
                     yield return o;
                 }
-                if (!param.ParameterType.IsAssignableFrom(lastValue.GetType()))
+                if (!skipExec && !param.ParameterType.IsAssignableFrom(lastValue.GetType()))
                     throw new OperationException(reader, string.Format("Wrong parameter for argument {0} of call {1}", param.Name, method.Name));
                 args[i++] = lastValue;
             }
