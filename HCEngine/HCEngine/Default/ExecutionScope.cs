@@ -13,6 +13,17 @@ namespace HCEngine.Default
         IDictionary<string, object> m_Values;
 
         /// <summary>
+        /// <see cref="IExecutionScope.KnownIdentifiers"/>
+        /// </summary>
+        public ICollection<string> KnownIdentifiers
+        {
+            get
+            {
+                return m_Values.Keys;
+            }
+        }
+
+        /// <summary>
         /// Constructor for creating a subscope of a parent scope.
         /// </summary>
         /// <param name="parent">Origin of the subscope</param>

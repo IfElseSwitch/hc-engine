@@ -1,4 +1,6 @@
-﻿namespace HCEngine
+﻿using System.Collections.Generic;
+
+namespace HCEngine
 {
     /// <summary>
     /// Interface for Execution Scopes
@@ -32,5 +34,10 @@
         /// <param name="identifier">Name of the value to check</param>
         /// <returns>True if the value exists and is of the expected type, false otherwise</returns>
         bool IsOfType<T>(string identifier);
+
+        /// <summary>
+        /// All known identifiers.
+        /// </summary>
+        ICollection<string> KnownIdentifiers { get; }
     }
 }
