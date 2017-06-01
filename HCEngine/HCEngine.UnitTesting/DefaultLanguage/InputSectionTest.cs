@@ -82,6 +82,7 @@ namespace HCEngine.UnitTesting.DefaultLanguage
             }
             catch (SyntaxException se)
             {
+                se.RemoveUnusedWarning();
                 Assert.IsTrue(expectError);
             }
             catch

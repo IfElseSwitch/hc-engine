@@ -41,7 +41,9 @@ namespace HCEngine.UnitTesting.EngineCore
                 Assert.Fail("Accessing a wrong name should throw an error");
             }
             catch(ScopeException se)
-            {}
+            {
+                se.RemoveUnusedWarning();
+            }
             catch
             {
                 Assert.Fail("Unknown error thrown when accessing wrong name");
