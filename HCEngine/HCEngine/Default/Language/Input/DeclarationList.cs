@@ -7,9 +7,9 @@ namespace HCEngine.Default.Language
     /// <summary>
     /// Class representing a List of declarations.
     /// </summary>
-    public class DeclarationList : ISyntaxTreeItem
+    public class DeclarationList : AInputStatement
     {
-        public List<ISyntaxTreeItem> ChildrenNodes
+        public override List<ISyntaxTreeItem> ChildrenNodes
         {
             get
             {
@@ -22,12 +22,20 @@ namespace HCEngine.Default.Language
             }
         }
 
-        public IScriptExecution Execute(IExecutionScope scope)
+        public override IDictionary<string, Type> ParametersMap
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        public override IScriptExecution Execute(IExecutionScope scope)
         {
             throw new NotImplementedException();
         }
 
-        public void Setup(ISourceReader reader)
+        public override void Setup(ISourceReader reader)
         {
             throw new NotImplementedException();
         }
