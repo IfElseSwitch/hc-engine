@@ -1,4 +1,6 @@
-﻿namespace HCEngine.Default.Built_in
+﻿using System.Collections.Generic;
+
+namespace HCEngine.Default.Built_in
 {
     /// <summary>
     /// Static class exposing built-in calls
@@ -11,11 +13,11 @@
         /// <param name="max">Length of the array</param>
         /// <returns>Array [0..max[</returns>
         [ExposedCall]
-        public static int[] Range(int max)
+        public static List<int> Range(int max)
         {
-            int[] res = new int[max];
+            List<int> res = new List<int>();
             for (int i = 0; i < max; ++i)
-                res[i] = i;
+                res.Add(i);
             return res;
         }
     }
