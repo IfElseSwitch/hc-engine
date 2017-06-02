@@ -3,7 +3,13 @@ using System.Collections.Generic;
 
 namespace HCEngine.Default.Language
 {
+    /// <summary>
+    /// Delegate used by loop declarations to generate the execution of the condition. 
+    /// The last object yielded must be a bool.
+    /// </summary>
+    /// <returns></returns>
     public delegate IEnumerable<object> LoopCondition();
+
     /// <summary>
     /// Class to execute loops
     /// </summary>

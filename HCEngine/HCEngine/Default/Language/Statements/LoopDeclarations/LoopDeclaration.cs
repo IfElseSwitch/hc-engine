@@ -4,8 +4,14 @@ using System.Text;
 
 namespace HCEngine.Default.Language
 {
+    /// <summary>
+    /// Syntax item to execute loop declarations
+    /// </summary>
     public class LoopDeclaration : ISyntaxTreeItem
     {
+        /// <summary>
+        /// <see cref="ISyntaxTreeItem.Execute(ISourceReader, IExecutionScope, bool)"/> 
+        /// </summary>
         public IScriptExecution Execute(ISourceReader reader, IExecutionScope scope, bool skipExec)
         {
             string word = reader.LastKeyword;
@@ -18,6 +24,9 @@ namespace HCEngine.Default.Language
             throw new SyntaxException(reader, "Not recognized as loop declaration");
         }
 
+        /// <summary>
+        /// <see cref="ISyntaxTreeItem.IsStartOfNode(string, IExecutionScope)"/>
+        /// </summary>
         public bool IsStartOfNode(string word, IExecutionScope scope)
         {
             return DefaultLanguageNodes.EachDeclaration.IsStartOfNode(word, scope) ||
