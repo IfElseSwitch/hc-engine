@@ -47,7 +47,8 @@ namespace HCEngine.Default.Language
                 foreach(object o in exec)
                 {
                     lastValue = o;
-                    yield return o;
+                    if (!skipExec)
+                        yield return o;
                 }
                 if (!skipExec && !param.ParameterType.IsAssignableFrom(lastValue.GetType()))
                     throw new OperationException(reader, string.Format("Wrong parameter for argument {0} of call {1}", param.Name, method.Name));

@@ -20,7 +20,7 @@ namespace HCEngine.UnitTesting.DefaultLanguage
             TestSection<If>("if false testargs \"OK\" else testcall", false, null, false, "OK");
             TestSection<If>("if testcall testargs 2", true, typeof(OperationException), null);
             TestSection<If>("if false testargs $z else testcall", false, null, false, "OK");
-            TestSection<If>("if false testwrong else testcall", true, typeof(ScopeException), null);
+            TestSection<If>("if false testwrong else testcall", true, typeof(SyntaxException), null);
         }
 
         void TestSection<TSection>(string source, bool expectError, Type expectedError, params object[] execTrace)

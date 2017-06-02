@@ -39,13 +39,17 @@ namespace HCEngine.Default.Language
             if (lastResult is bool == false)
                 throw new OperationException(reader, "if condition is not boolean value");
             bool cond = (bool) lastResult;
-            var thenexec = DefaultLanguageNodes.Statement.Execute(reader, scope, cond);
+            var thenexec = DefaultLanguageNodes.Statement.Execute(reader, scope, !cond);
             foreach (object o in thenexec)
                 yield return o;
+            if (reader.ReadingComplete)
+                yield break;
             if (!reader.LastKeyword.Equals(DefaultLanguageKeywords.ElseKeyword))
                 yield break;
             reader.ReadNext();
-            var elseexec = DefaultLanguageNodes.Statement.Execute(reader, scope, !cond);
+            var elseexec = DefaultLanguageNodes.Statement.Execute(reader, scope, cond);
+            foreach (object o in elseexec)
+                yield return o;
         }
     }
 }
