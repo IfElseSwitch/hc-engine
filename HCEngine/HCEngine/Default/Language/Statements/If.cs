@@ -26,7 +26,26 @@ namespace HCEngine.Default.Language
 
         private IEnumerator<object> Exec(ISourceReader reader, IExecutionScope scope, bool skipExec)
         {
-            throw new NotImplementedException();
+            if (!IsStartOfNode(reader.LastKeyword, scope))
+                throw new SyntaxException(reader, "If section should start with if keyword");
+            reader.ReadNext();
+            var condexec = DefaultLanguageNodes.Operation.Execute(reader, scope, skipExec);
+            object lastResult = null;
+            foreach (object o in condexec)
+            {
+                lastResult = o;
+                yield return o;
+            }
+            if (lastResult is bool == false)
+                throw new OperationException(reader, "if condition is not boolean value");
+            bool cond = (bool) lastResult;
+            var thenexec = DefaultLanguageNodes.Statement.Execute(reader, scope, cond);
+            foreach (object o in thenexec)
+                yield return o;
+            if (!reader.LastKeyword.Equals(DefaultLanguageKeywords.ElseKeyword))
+                yield break;
+            reader.ReadNext();
+            var elseexec = DefaultLanguageNodes.Statement.Execute(reader, scope, !cond);
         }
     }
 }

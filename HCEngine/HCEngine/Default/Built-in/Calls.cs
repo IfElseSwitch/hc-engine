@@ -6,7 +6,7 @@
     static public class Calls
     {
         /// <summary>
-        /// Built-in call that creates a, array filled with integers from 0 (included) to max (excluded).
+        /// Built-in call that creates a array filled with integers from 0 (included) to max (excluded).
         /// </summary>
         /// <param name="max">Length of the array</param>
         /// <returns>Array [0..max[</returns>
