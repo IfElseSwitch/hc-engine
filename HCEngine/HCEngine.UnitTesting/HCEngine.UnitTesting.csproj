@@ -54,6 +54,7 @@
   <ItemGroup>
     <Compile Include="DefaultLanguage\InputSectionTest.cs" />
     <Compile Include="DefaultLanguage\OperationTest.cs" />
+    <Compile Include="DefaultLanguage\SectionTest.cs" />
     <Compile Include="Helper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="EngineCore\SourceReaderTest.cs" />
