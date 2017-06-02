@@ -9,9 +9,9 @@ namespace HCEngine.Default.Language
     public class InputDeclaration : ISyntaxTreeItem
     {
         /// <summary>
-        /// <see cref="ISyntaxTreeItem.Execute(ISourceReader, IExecutionScope)"/>
+        /// <see cref="ISyntaxTreeItem.Execute(ISourceReader, IExecutionScope, bool)"/>
         /// </summary>
-        public IScriptExecution Execute(ISourceReader reader, IExecutionScope scope)
+        public IScriptExecution Execute(ISourceReader reader, IExecutionScope scope, bool skipExec)
         {
             return new ScriptExecution(Exec(reader, scope));
         }
@@ -26,7 +26,7 @@ namespace HCEngine.Default.Language
 
         private IEnumerator<object> Exec(ISourceReader reader, IExecutionScope scope)
         {
-            var exec = DefaultLanguageNodes.Variable.Execute(reader, scope);
+            var exec = DefaultLanguageNodes.Variable.Execute(reader, scope, true);
             IDictionary<string, Type> parametersMap = new Dictionary<string, Type>();
             string id = exec.ExecuteNext() as string;
             reader.ReadNext();
