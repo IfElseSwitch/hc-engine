@@ -50,6 +50,21 @@ namespace HCEngine.Default.Language
         public static ISyntaxTreeItem Loop { get; set; } = new Loop();
 
         /// <summary>
+        /// Syntax node to use to read loops
+        /// </summary>
+        public static ISyntaxTreeItem LoopDeclaration { get; set; } = new LoopDeclaration();
+
+        /// <summary>
+        /// Syntax node to use to read Each declarations
+        /// </summary>
+        public static ISyntaxTreeItem EachDeclaration { get; set; } = new EachDeclaration();
+
+        /// <summary>
+        /// Syntax node to use to read While declarations
+        /// </summary>
+        public static ISyntaxTreeItem WhileDeclaration { get; set; } = new WhileDeclaration();
+
+        /// <summary>
         /// Syntax node to use to read operations
         /// </summary>
         public static ISyntaxTreeItem Operation { get; set; } = new Operation();

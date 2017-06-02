@@ -52,14 +52,18 @@
     <Compile Include="Default\Language\Input\InputDeclaration.cs" />
     <Compile Include="Default\Language\Input\InputSection.cs" />
     <Compile Include="Default\Language\Statements\Constant.cs" />
+    <Compile Include="Default\Language\Statements\LoopDeclarations\EachDeclaration.cs" />
     <Compile Include="Default\Language\Statements\If.cs" />
     <Compile Include="Default\Language\Statements\Loop.cs" />
+    <Compile Include="Default\Language\Statements\LoopDeclarations\LoopDeclaration.cs" />
     <Compile Include="Default\Language\Statements\Operation.cs" />
     <Compile Include="Default\Language\Statements\Section.cs" />
     <Compile Include="Default\Language\Statements\Statement.cs" />
     <Compile Include="Default\Language\Statements\Call.cs" />
     <Compile Include="Default\Language\Statements\StatementList.cs" />
     <Compile Include="Default\Language\Statements\Variable.cs" />
+    <Compile Include="Default\Language\Statements\LoopDeclarations\WhileDeclaration.cs" />
+    <Compile Include="Default\LoopedSourceReader.cs" />
     <Compile Include="Default\ScopeFactory.cs" />
     <Compile Include="Default\ScriptExecution.cs" />
     <Compile Include="Default\SourceReader.cs" />
@@ -84,6 +88,7 @@
   <ItemGroup>
     <None Include="RootClassDiagram.cd" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PreBuildEvent>powershell -command "sh $(ProjectDir)buildNumber.sh $(ProjectDir)Versionning.cs"</PreBuildEvent>

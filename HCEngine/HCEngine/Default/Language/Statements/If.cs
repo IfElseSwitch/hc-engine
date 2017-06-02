@@ -29,7 +29,8 @@ namespace HCEngine.Default.Language
             if (!IsStartOfNode(reader.LastKeyword, scope))
                 throw new SyntaxException(reader, "If section should start with if keyword");
             reader.ReadNext();
-            var condexec = DefaultLanguageNodes.Operation.Execute(reader, scope, skipExec);
+            IExecutionScope ifScope = scope.MakeSubScope();
+            var condexec = DefaultLanguageNodes.Operation.Execute(reader, ifScope, skipExec);
             object lastResult = null;
             foreach (object o in condexec)
             {
@@ -39,7 +40,7 @@ namespace HCEngine.Default.Language
             if (lastResult is bool == false)
                 throw new OperationException(reader, "if condition is not boolean value");
             bool cond = (bool) lastResult;
-            var thenexec = DefaultLanguageNodes.Statement.Execute(reader, scope, !cond);
+            var thenexec = DefaultLanguageNodes.Statement.Execute(reader, ifScope, !cond);
             foreach (object o in thenexec)
                 yield return o;
             if (reader.ReadingComplete)
@@ -47,7 +48,7 @@ namespace HCEngine.Default.Language
             if (!reader.LastKeyword.Equals(DefaultLanguageKeywords.ElseKeyword))
                 yield break;
             reader.ReadNext();
-            var elseexec = DefaultLanguageNodes.Statement.Execute(reader, scope, cond);
+            var elseexec = DefaultLanguageNodes.Statement.Execute(reader, ifScope, cond);
             foreach (object o in elseexec)
                 yield return o;
         }
