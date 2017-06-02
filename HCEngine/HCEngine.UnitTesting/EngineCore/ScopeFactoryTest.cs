@@ -16,21 +16,6 @@ namespace HCEngine.UnitTesting.EngineCore
     [ExposedType(LinkToType = typeof(bool), NameOverride = "BoolType")]
     public class FourthType { }
 
-    [ExposedType(LinkToType = typeof(string), NameOverride = "String", ConstantReaderType = typeof(StringReader))]
-    public class StringLink
-    {
-        class StringReader : IConstantReader
-        {
-            public bool Try(string word, out object instance)
-            {
-                instance = null;
-                if (!word.StartsWith("\"") || !word.EndsWith("\""))
-                    return false;
-                instance = word.Substring(1,word.Length - 2);
-                return true;
-            }
-        }
-    }
 
 
     [TestClass]

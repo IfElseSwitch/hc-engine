@@ -6,21 +6,6 @@ using HCEngine.Default.Language;
 
 namespace HCEngine.UnitTesting.DefaultLanguage
 {
-    [ExposedType(LinkToType =typeof(int), NameOverride = "Int", ConstantReaderType = typeof(IntReader))]
-    public class IntLink
-    {
-        class IntReader : IConstantReader
-        {
-            public bool Try(string word, out object instance)
-            {
-                int i;
-                bool res = int.TryParse(word, out i);
-                instance = i;
-                return res;
-            }
-        }
-    }
-
     [TestClass]
     public class InputSectionTest
     {
@@ -82,7 +67,7 @@ namespace HCEngine.UnitTesting.DefaultLanguage
             TInput tested = new TInput();
             try
             {
-                var exec = tested.Execute(reader, m_Scope);
+                var exec = tested.Execute(reader, m_Scope, false);
                 var pmap = exec.ExecuteNext() as IDictionary<string, Type>;
 
                 Assert.IsFalse(expectError);

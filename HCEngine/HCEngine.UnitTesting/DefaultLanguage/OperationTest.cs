@@ -35,6 +35,7 @@ namespace HCEngine.UnitTesting.DefaultLanguage
             TestOperation<Call>("testcall $x", false, "OK", null);
             TestOperation<Call>("testargs", true, null, typeof(SyntaxException));
             TestOperation<Call>("testargs 2", false, 2, null);
+            TestOperation<Call>("testargs \"OK\"", true, null, typeof(OperationException));
         }
 
         [TestMethod]
@@ -56,7 +57,7 @@ namespace HCEngine.UnitTesting.DefaultLanguage
             TOperation op = new TOperation();
             try
             {
-                var exec = op.Execute(reader, m_Scope);
+                var exec = op.Execute(reader, m_Scope, false);
                 object lastValue = null;
                 foreach (var o in exec)
                 {
