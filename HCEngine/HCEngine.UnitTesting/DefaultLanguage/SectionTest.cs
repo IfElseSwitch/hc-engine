@@ -2,7 +2,9 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using HCEngine.Default;
 using HCEngine.Default.Language;
-
+using System.Collections.Generic;
+using System.Collections;
+using HCEngine.Default.Built_in;
 
 namespace HCEngine.UnitTesting.DefaultLanguage
 {
@@ -23,6 +25,27 @@ namespace HCEngine.UnitTesting.DefaultLanguage
             TestSection<If>("if false testwrong else testcall", true, typeof(SyntaxException), null);
         }
 
+        [TestMethod]
+        public void TestLoop()
+        {
+            TestSection<Loop>("loop $i in range 2\n testargs $i", false, null,
+                2,
+                Calls.Range(2) as ICollection, 
+                null,
+                true,
+                "$i",
+                0, 
+                0,
+                null,
+                true,
+                "$i",
+                1,
+                1,
+                false
+                );
+            TestSection<Loop>("loop while false testargs $z", false, null, false, false);
+        }
+
         void TestSection<TSection>(string source, bool expectError, Type expectedError, params object[] execTrace)
             where TSection : ISyntaxTreeItem, new()
         {
@@ -38,7 +61,20 @@ namespace HCEngine.UnitTesting.DefaultLanguage
                     if (expectError)
                         continue;
                     Assert.IsTrue(i < execTrace.Length);
-                    Assert.AreEqual(execTrace[i++], o);
+                    object expected = execTrace[i++];
+                    if (expected is IList)
+                    {
+                        Assert.IsInstanceOfType(o, typeof(IList));
+                        IList collection = expected as IList;
+                        IList actual = o as IList;
+                        for(int j = 0; j < collection.Count; ++j)
+                        {
+                            Assert.IsTrue(j < actual.Count);
+                            Assert.AreEqual(collection[j], actual[j]);
+                        }
+                    }
+                    else
+                        Assert.AreEqual(expected, o);
                 }
                 Assert.IsFalse(expectError);
                 Assert.AreEqual(execTrace.Length, i);

@@ -19,7 +19,11 @@ namespace HCEngine.Default
         {
             get
             {
-                return m_Values.Keys;
+                List<string> keys = new List<string>();
+                keys.AddRange(m_Values.Keys);
+                if (m_Parent != null)
+                    keys.AddRange(m_Parent.KnownIdentifiers);
+                return keys;
             }
         }
 

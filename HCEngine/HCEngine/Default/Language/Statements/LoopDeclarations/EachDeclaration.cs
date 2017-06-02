@@ -47,6 +47,7 @@ namespace HCEngine.Default.Language
                 yield break;
             }
             scope[identifier] = source.Current;
+            yield return null;
             yield return true;
         }
     }

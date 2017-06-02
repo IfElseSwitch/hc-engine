@@ -134,7 +134,13 @@ namespace HCEngine.Default
             m_Current = 0;
         }
 
-        void AddSnapshot()
+        public void ForgetFirst()
+        {
+            m_Read.RemoveAt(0);
+            --m_Current;
+        }
+
+        public void AddSnapshot()
         {
             m_Read.Add(new Snapshot(m_Parent));
         }

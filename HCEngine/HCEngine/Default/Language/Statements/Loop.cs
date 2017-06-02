@@ -42,13 +42,15 @@ namespace HCEngine.Default.Language
             foreach(object o in declarationexec)
             {
                 lastValue = o;
-                yield return o;
+                if (o is LoopCondition == false)
+                    yield return o;
             }
             if (lastValue is LoopCondition == false)
                 throw new OperationException(reader, "No condition generated for loop");
             LoopCondition condition = lastValue as LoopCondition;
             LoopedSourceReader loopedReader = new LoopedSourceReader(reader);
-
+            loopedReader.ForgetFirst();
+            bool first = true;
             while (true)
             {
                 var condexec = condition();
@@ -58,12 +60,19 @@ namespace HCEngine.Default.Language
                     lastValue = o;
                     yield return o;
                 }
+                if (first)
+                {
+                    loopedReader.ReadNext();
+                    first = false;
+                }
                 if (lastValue is bool == false)
                     throw new OperationException(loopedReader, "Invalid returned value by condition");
                 bool doLoop = (bool) lastValue;
                 if (!doLoop)
                     break;
-                DefaultLanguageNodes.Statement.Execute(loopedReader, loopScope, skipExec);
+                var exec = DefaultLanguageNodes.Statement.Execute(loopedReader, loopScope, skipExec);
+                foreach (object o in exec)
+                    yield return o;
                 loopedReader.Reset();
             }
         }
