@@ -5,7 +5,7 @@ using HCEngine.Default.Language;
 
 namespace HCEngine.UnitTesting.DefaultLanguage
 {
-    
+
     [TestClass]
     public class OperationTest
     {
@@ -48,6 +48,44 @@ namespace HCEngine.UnitTesting.DefaultLanguage
             TestOperation<Variable>("x", true, null, typeof(SyntaxException));
         }
 
+        [TestMethod]
+        public void TestAssignation()
+        {
+            IExecutionScope assignScope = m_Scope.MakeSubScope();
+            assignScope["$x"] = 1;
+
+            AssignSubTest("set $x 2", assignScope, "$x", 2, "$y");
+            AssignSubTest("set $y 1", assignScope, "$y", 1, "$z");
+            try
+            {
+                AssignSubTest("set 2 $y", assignScope, "$x", 2, "$z");
+                Assert.Fail("set 2 $y should throw syntax exception");
+            }
+            catch(SyntaxException se)
+            {
+                se.RemoveUnusedWarning();
+            }
+        }
+
+        void AssignSubTest(string source, IExecutionScope scope, string expectedId, object expectedValue, string unexpectedId)
+        {
+            ISourceReader reader = new SourceReader();
+
+            reader.Initialize(source);
+            Assignation assign = new Assignation();
+
+            var exec = assign.Execute(reader, scope, false);
+            object[] expected = new object[] { expectedValue, null };
+            int i = 0;
+            foreach (object o in exec)
+            {
+                Assert.AreEqual(expected[i++], o);
+            }
+
+            Assert.IsTrue(scope.Contains(expectedId));
+            Assert.AreEqual(expectedValue, scope[expectedId]);
+            Assert.IsFalse(scope.Contains(unexpectedId));
+        }
 
         void TestOperation<TOperation>(string source, bool expectError, object expectedValue, Type expectedErrorType)
             where TOperation : ISyntaxTreeItem, new()
