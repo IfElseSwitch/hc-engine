@@ -58,11 +58,12 @@ namespace HCEngine.Default.Language
                 foreach(object o in condexec)
                 {
                     lastValue = o;
-                    yield return o;
+                    if (!skipExec)
+                        yield return o;
                 }
                 if (first)
                 {
-                    loopedReader.ReadNext();
+                    loopedReader.AddSnapshot();
                     first = false;
                 }
                 if (lastValue is bool == false)
@@ -72,7 +73,8 @@ namespace HCEngine.Default.Language
                     break;
                 var exec = DefaultLanguageNodes.Statement.Execute(loopedReader, loopScope, skipExec);
                 foreach (object o in exec)
-                    yield return o;
+                    if (!skipExec)
+                        yield return o;
                 loopedReader.Reset();
             }
         }

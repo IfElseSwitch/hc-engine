@@ -134,12 +134,17 @@ namespace HCEngine.Default
             m_Current = 0;
         }
 
+        /// <summary>
+        /// Removes the first snapshot (useful to prepare a looped reader before the reader is at the correct position)
+        /// </summary>
         public void ForgetFirst()
         {
             m_Read.RemoveAt(0);
-            --m_Current;
         }
 
+        /// <summary>
+        /// Adds a snapshot without moving the current index. Useful when the looped reader was prepared before the reader was at the correct position.
+        /// </summary>
         public void AddSnapshot()
         {
             m_Read.Add(new Snapshot(m_Parent));
