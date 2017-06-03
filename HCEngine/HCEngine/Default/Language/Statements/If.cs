@@ -35,14 +35,16 @@ namespace HCEngine.Default.Language
             foreach (object o in condexec)
             {
                 lastResult = o;
-                yield return o;
+                if (!skipExec)
+                    yield return o;
             }
             if (lastResult is bool == false)
                 throw new OperationException(reader, "if condition is not boolean value");
             bool cond = (bool) lastResult;
             var thenexec = DefaultLanguageNodes.Statement.Execute(reader, ifScope, !cond);
             foreach (object o in thenexec)
-                yield return o;
+                if (!cond)
+                    yield return o;
             if (reader.ReadingComplete)
                 yield break;
             if (!reader.LastKeyword.Equals(DefaultLanguageKeywords.ElseKeyword))
@@ -50,7 +52,8 @@ namespace HCEngine.Default.Language
             reader.ReadNext();
             var elseexec = DefaultLanguageNodes.Statement.Execute(reader, ifScope, cond);
             foreach (object o in elseexec)
-                yield return o;
+                if (cond)
+                    yield return o;
         }
     }
 }
