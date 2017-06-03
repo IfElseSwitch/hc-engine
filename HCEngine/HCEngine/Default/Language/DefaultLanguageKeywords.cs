@@ -59,5 +59,10 @@ namespace HCEngine.Default.Language
         /// Keyword for declaring a else block of a if section.
         /// </summary>
         public static string ElseKeyword { get; set; } = "else";
+
+        /// <summary>
+        /// Keyword for declaring an assignation.
+        /// </summary>
+        public static string AssignationKeyword { get; set; } = "set";
     }
 }

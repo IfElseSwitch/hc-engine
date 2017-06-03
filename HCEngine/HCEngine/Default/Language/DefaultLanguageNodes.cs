@@ -84,5 +84,9 @@ namespace HCEngine.Default.Language
         /// </summary>
         public static ISyntaxTreeItem Call { get; set; } = new Call();
 
+        /// <summary>
+        /// Syntax node to use to read assignations
+        /// </summary>
+        public static ISyntaxTreeItem Assignation { get; set; } = new Assignation();
     }
 }

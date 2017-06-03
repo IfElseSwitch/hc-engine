@@ -51,6 +51,7 @@
     <Compile Include="Default\Language\Input\DeclarationList.cs" />
     <Compile Include="Default\Language\Input\InputDeclaration.cs" />
     <Compile Include="Default\Language\Input\InputSection.cs" />
+    <Compile Include="Default\Language\Statements\Assignation.cs" />
     <Compile Include="Default\Language\Statements\Constant.cs" />
     <Compile Include="Default\Language\Statements\LoopDeclarations\EachDeclaration.cs" />
     <Compile Include="Default\Language\Statements\If.cs" />
