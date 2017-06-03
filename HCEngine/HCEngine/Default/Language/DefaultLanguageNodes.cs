@@ -10,6 +10,16 @@ namespace HCEngine.Default.Language
     public static class DefaultLanguageNodes
     {
         /// <summary>
+        /// Syntax node to read scripts
+        /// </summary>
+        public static ISyntaxTreeItem ScriptRoot { get; set; } = new ScriptRoot();
+
+        /// <summary>
+        /// Syntax Node to use to read input sections
+        /// </summary>
+        public static ISyntaxTreeItem InputSection { get; set; } = new InputSection();
+
+        /// <summary>
         /// Syntax Node to use to read input statemens
         /// </summary>
         public static ISyntaxTreeItem InputStatement { get; set; } = new InputStatement();

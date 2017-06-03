@@ -11,7 +11,7 @@ namespace HCEngine
         /// <summary>
         /// Expected arguments types for the script, keyed by identifiers
         /// </summary>
-        IDictionary<string, Type> ExpectedArguments { get; set; }
+        IDictionary<string, Type> ExpectedArguments { get; }
 
         /// <summary>
         /// Creates a <see cref="IScriptExecution"/> for this script with the given arguments 
