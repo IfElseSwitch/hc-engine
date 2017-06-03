@@ -4,7 +4,6 @@ using HCEngine.Default;
 using HCEngine.Default.Language;
 using System.Collections.Generic;
 using System.Collections;
-using HCEngine.Default.Built_in;
 
 namespace HCEngine.UnitTesting.DefaultLanguage
 {
@@ -28,7 +27,8 @@ namespace HCEngine.UnitTesting.DefaultLanguage
         [TestMethod]
         public void TestLoop()
         {
-            TestSection<Loop>("loop $i in range 2\n testargs $i", false, null,
+            m_Scope["$x"] = 0;
+            TestSection<Loop>("loop $i in range 2 testargs $i", false, null,
                 2,
                 Calls.Range(2) as ICollection, 
                 null,
@@ -44,6 +44,13 @@ namespace HCEngine.UnitTesting.DefaultLanguage
                 false
                 );
             TestSection<Loop>("loop while false testargs $z", false, null, false, false);
+            TestSection<Loop>("loop while inf $x 2 ( testargs $x set $x add $x 1 )", false, null,
+                "$x", 0, 2, true, true, 
+                "$x", 0, 0, "$x", 0, 1, 1, null,
+                "$x", 1, 2, true, true, 
+                "$x", 1, 1, "$x", 1, 1, 2, null, 
+                "$x", 2, 2, false, false
+                );
         }
 
         void TestSection<TSection>(string source, bool expectError, Type expectedError, params object[] execTrace)
