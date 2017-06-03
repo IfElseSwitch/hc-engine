@@ -38,6 +38,7 @@ namespace HCEngine.Default.Language
         public bool IsStartOfNode(string word, IExecutionScope scope)
         {
             return DefaultLanguageNodes.Call.IsStartOfNode(word, scope) ||
+                DefaultLanguageNodes.Assignation.IsStartOfNode(word, scope) ||
                 DefaultLanguageNodes.Variable.IsStartOfNode(word, scope) ||
                 DefaultLanguageNodes.Constant.IsStartOfNode(word, scope);
         }
