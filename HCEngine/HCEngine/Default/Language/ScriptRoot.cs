@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace HCEngine.Default.Language
 {
@@ -17,6 +16,9 @@ namespace HCEngine.Default.Language
             return new ScriptExecution(Exec(reader, scope, skipExec));
         }
 
+        /// <summary>
+        /// <see cref="ISyntaxTreeItem.IsStartOfNode(string, IExecutionScope)"/>
+        /// </summary>
         public bool IsStartOfNode(string word, IExecutionScope scope)
         {
             return true;

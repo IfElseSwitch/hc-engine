@@ -1,7 +1,6 @@
 ﻿using HCEngine.Default.Language;
 using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace HCEngine.Default
 {
@@ -21,8 +20,8 @@ namespace HCEngine.Default
         public Script(ISourceReader reader, IExecutionScope defaultScope)
         {
             m_Reader = new LoopedSourceReader(reader);
-            m_Scope = defaultScope.MakeSubScope();
-            var exec = DefaultLanguageNodes.ScriptRoot.Execute(m_Reader, m_Scope, false);
+            m_Scope = defaultScope;
+            var exec = DefaultLanguageNodes.ScriptRoot.Execute(m_Reader, m_Scope.MakeSubScope(), false);
             ExpectedArguments = exec.ExecuteNext() as IDictionary<string, Type>;
             m_Reader.Reset();
         }
@@ -37,7 +36,13 @@ namespace HCEngine.Default
         /// </summary>
         public IScriptExecution Run(IDictionary<string, object> arguments)
         {
-            var exec = DefaultLanguageNodes.ScriptRoot.Execute(m_Reader, m_Scope, false);
+            m_Reader.Reset();
+            IExecutionScope subscope = m_Scope.MakeSubScope();
+            foreach (var kvp in arguments)
+            {
+                subscope[kvp.Key] = kvp.Value;
+            }
+            var exec = DefaultLanguageNodes.ScriptRoot.Execute(m_Reader, subscope, false);
             exec.ExecuteNext(); // Skip the parameters map read (done in constructor)
             return exec;
         }
