@@ -13,8 +13,8 @@ namespace HCEngine
         /// <param name="factory">Factory to build the default scope</param>
         public Engine(IScopeFactory factory)
         {
-            Reader = new SourceReader();
-            Structure = new DefaultLanguageStructure();
+            ReaderFactory = new SourceReaderFactory();
+            Structure = new DefaultLanguageScriptFactory();
             DefaultScope = factory.MakeScope();
         }
 
@@ -26,9 +26,9 @@ namespace HCEngine
         { }
 
         /// <summary>
-        /// The <see cref="ISourceReader" /> used for reading sources.
+        /// The <see cref="ISourceReaderFactory" /> used for reading sources.
         /// </summary>
-        public ISourceReader Reader
+        public ISourceReaderFactory ReaderFactory
         {
             get;
             set;
@@ -37,7 +37,7 @@ namespace HCEngine
         /// <summary>
         /// Structure of the script language to interpret.
         /// </summary>
-        public IScriptStructureDefinition Structure
+        public IScriptFactory Structure
         {
             get;
             set;
@@ -59,7 +59,7 @@ namespace HCEngine
         /// <returns>The corresponding <see cref="IScript"/></returns>
         IScript LoadScript(string source)
         {
-            throw new System.NotImplementedException();
+            return Structure.CreateScript(ReaderFactory.MakeReader(source), DefaultScope);
         }
     }
 }

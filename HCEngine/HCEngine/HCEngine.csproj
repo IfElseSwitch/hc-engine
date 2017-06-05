@@ -43,7 +43,7 @@
   <ItemGroup>
     <Compile Include="Default\Built-in\Calls.cs" />
     <Compile Include="Default\Built-in\Types.cs" />
-    <Compile Include="Default\DefaultLanguageStructure.cs" />
+    <Compile Include="Default\Factories\DefaultLanguageScriptFactory.cs" />
     <Compile Include="Default\ExecutionScope.cs" />
     <Compile Include="Default\Language\DefaultLanguageKeywords.cs" />
     <Compile Include="Default\Language\DefaultLanguageNodes.cs" />
@@ -66,22 +66,24 @@
     <Compile Include="Default\Language\Statements\Variable.cs" />
     <Compile Include="Default\Language\Statements\LoopDeclarations\WhileDeclaration.cs" />
     <Compile Include="Default\LoopedSourceReader.cs" />
-    <Compile Include="Default\ScopeFactory.cs" />
+    <Compile Include="Default\Factories\ScopeFactory.cs" />
     <Compile Include="Default\Script.cs" />
     <Compile Include="Default\ScriptExecution.cs" />
     <Compile Include="Default\SourceReader.cs" />
+    <Compile Include="Default\Factories\SourceReaderFactory.cs" />
     <Compile Include="Exceptions\ExecutionException.cs" />
     <Compile Include="Exceptions\HCEngineException.cs" />
     <Compile Include="Engine.cs" />
     <Compile Include="ExposedCallAttribute.cs" />
     <Compile Include="ExposedTypeAttribute.cs" />
     <Compile Include="IExecutionScope.cs" />
-    <Compile Include="IScopeFactory.cs" />
+    <Compile Include="Factories\IScopeFactory.cs" />
     <Compile Include="IScript.cs" />
     <Compile Include="IScriptExecution.cs" />
-    <Compile Include="IScriptStructureDefinition.cs" />
+    <Compile Include="Factories\IScriptFactory.cs" />
     <Compile Include="ISourceReader.cs" />
     <Compile Include="Exceptions\OperationException.cs" />
+    <Compile Include="Factories\ISourceReaderFactory.cs" />
     <Compile Include="ISyntaxTreeItem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Exceptions\ScopeException.cs" />
