@@ -1,18 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Reflection;
-using System.Text;
 
 namespace HCEngine
 {
     /// <summary>
-    /// Interface to instanciate an exposed type from a word.
+    ///     Interface to instanciate an exposed type from a word.
     /// </summary>
     public interface IConstantReader
     {
         /// <summary>
-        /// Tries to create an instance of the bound type from the string word.
-        /// Returns true if an instance is created.
+        ///     Tries to create an instance of the bound type from the string word.
+        ///     Returns true if an instance is created.
         /// </summary>
         /// <param name="word">Word to use for instantiation</param>
         /// <param name="instance">Instance created</param>
@@ -21,33 +18,28 @@ namespace HCEngine
     }
 
     /// <summary>
-    /// Attribute marking a public type as visible from user scripts.
+    ///     Attribute marking a public type as visible from user scripts.
     /// </summary>
     [AttributeUsage(AttributeTargets.Class)]
     public sealed class ExposedTypeAttribute : Attribute
     {
         /// <summary>
-        /// Set if the name of the type should be different in scripts.
+        ///     Set if the name of the type should be different in scripts.
         /// </summary>
         public string NameOverride { get; set; }
 
         /// <summary>
-        /// Set if another type should be used in place of the tagged type.
+        ///     Set if another type should be used in place of the tagged type.
         /// </summary>
         public Type LinkToType { get; set; }
 
         /// <summary>
-        /// Type of the implementation of IConstantReader that reads constants for this type.
+        ///     Type of the implementation of IConstantReader that reads constants for this type.
         /// </summary>
         public Type ConstantReaderType { get; set; }
 
         /// <summary>
-        /// Default constructor. ExposedType has no position parameters.
-        /// </summary>
-        public ExposedTypeAttribute() { }
-
-        /// <summary>
-        /// Helper method to resolve the ConstantReader for an exposed type attribute
+        ///     Helper method to resolve the ConstantReader for an exposed type attribute
         /// </summary>
         /// <param name="exposed"></param>
         /// <returns></returns>
@@ -57,9 +49,11 @@ namespace HCEngine
                 return null;
             if (exposed.ConstantReaderType == null)
                 return null;
-            Type t = exposed.ConstantReaderType;
+            var t = exposed.ConstantReaderType;
             if (!typeof(IConstantReader).IsAssignableFrom(t))
-                throw new OperationException("", 0,0,string.Format("The ConstantReaderType {0} doesn't implement IConstantReader", exposed.ConstantReaderType.Name));
+                throw new OperationException("", 0, 0,
+                    string.Format("The ConstantReaderType {0} doesn't implement IConstantReader",
+                        exposed.ConstantReaderType.Name));
             return Activator.CreateInstance(t) as IConstantReader;
         }
     }

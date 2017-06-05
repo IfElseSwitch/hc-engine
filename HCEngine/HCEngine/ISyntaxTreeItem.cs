@@ -1,16 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace HCEngine
+﻿namespace HCEngine
 {
     /// <summary>
-    /// Interface for Syntax tree items.
+    ///     Interface for Syntax tree items.
     /// </summary>
     public interface ISyntaxTreeItem
     {
         /// <summary>
-        /// Logic for executing the node from source with a given scope
+        ///     Logic for executing the node from source with a given scope
         /// </summary>
         /// <param name="reader"><see cref="ISourceReader" /> for setting up the node.</param>
         /// <param name="scope">Scope of execution for calls and variables.</param>
@@ -19,7 +15,7 @@ namespace HCEngine
         IScriptExecution Execute(ISourceReader reader, IExecutionScope scope, bool skipExec);
 
         /// <summary>
-        /// Checks if the given word indicates the node type.
+        ///     Checks if the given word indicates the node type.
         /// </summary>
         /// <param name="word">Word to test</param>
         /// <param name="scope">current scope</param>

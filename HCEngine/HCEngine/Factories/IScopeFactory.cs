@@ -1,16 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace HCEngine
+﻿namespace HCEngine
 {
     /// <summary>
-    /// Interface for default scope factories.
+    ///     Interface for default scope factories.
     /// </summary>
     public interface IScopeFactory
     {
         /// <summary>
-        /// Creates a scope initialized with default values.
+        ///     Creates a scope initialized with default values.
         /// </summary>
         /// <returns>An initialized default scope.</returns>
         IExecutionScope MakeScope();
