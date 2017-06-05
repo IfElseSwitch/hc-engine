@@ -47,6 +47,7 @@ namespace HCEngine.Default.Language
                 if (reader.ReadingComplete)
                     throw new SyntaxException(reader, "Unexpected end of file");
             }
+            reader.ReadNext();
         }
     }
 }

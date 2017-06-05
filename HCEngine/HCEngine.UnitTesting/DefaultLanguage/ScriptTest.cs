@@ -13,7 +13,7 @@ namespace HCEngine.UnitTesting.DefaultLanguage
         {
             ISourceReader reader = new SourceReader();
             IExecutionScope scope = new ScopeFactory().MakeScope();
-            reader.Initialize("input ( \n $x is Int \n ) \n if inf $x 2( \n testcall \n ) \n else ( \n testargs $x \n )");
+            reader.Initialize("input ( \n $x is Int \n ) \n if inf $x 2 ( \n testcall \n ) \n else ( \n testargs $x \n )");
             IScript script = new Script(reader, scope);
             TestScript(script, new Dictionary<string, object>() { {"$x", 1 } }, false, "OK");
             TestScript(script, new Dictionary<string, object>() { {"$x", 2 } }, false, 2);
@@ -36,7 +36,7 @@ namespace HCEngine.UnitTesting.DefaultLanguage
             catch (HCEngineException he)
             {
                 he.RemoveUnusedWarning();
-                Assert.IsTrue(expectError);
+                Assert.IsTrue(expectError, he.Message);
             }
         }
     }
