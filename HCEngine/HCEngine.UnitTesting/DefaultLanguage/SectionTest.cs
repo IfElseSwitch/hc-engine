@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using HCEngine.Default;
-using HCEngine.Default.Language;
+using HCEngine.DefaultImplementations;
+using HCEngine.DefaultImplementations.Language;
 using System.Collections.Generic;
 using System.Collections;
 
@@ -15,20 +15,20 @@ namespace HCEngine.UnitTesting.DefaultLanguage
         [TestMethod]
         public void TestIf()
         {
-            TestSection<If>("if true testcall", false, null, true, "OK");
-            TestSection<If>("if false testcall", false, null, false);
-            TestSection<If>("if false testcall else testargs 2", false, null, false, 2, 2);
-            TestSection<If>("if false testargs \"OK\" else testcall", false, null, false, "OK");
-            TestSection<If>("if testcall testargs 2", true, typeof(OperationException), null);
-            TestSection<If>("if false testargs $z else testcall", false, null, false, "OK");
-            TestSection<If>("if false testwrong else testcall", true, typeof(SyntaxException), null);
+            TestSection<IfSyntax>("if true testcall", false, null, true, "OK");
+            TestSection<IfSyntax>("if false testcall", false, null, false);
+            TestSection<IfSyntax>("if false testcall else testargs 2", false, null, false, 2, 2);
+            TestSection<IfSyntax>("if false testargs \"OK\" else testcall", false, null, false, "OK");
+            TestSection<IfSyntax>("if testcall testargs 2", true, typeof(OperationException), null);
+            TestSection<IfSyntax>("if false testargs $z else testcall", false, null, false, "OK");
+            TestSection<IfSyntax>("if false testwrong else testcall", true, typeof(SyntaxException), null);
         }
 
         [TestMethod]
         public void TestLoop()
         {
             m_Scope["$x"] = 0;
-            TestSection<Loop>("loop $i in range 2 testargs $i", false, null,
+            TestSection<LoopSyntax>("loop $i in range 2 testargs $i", false, null,
                 2,
                 Calls.Range(2) as ICollection, 
                 null,
@@ -43,8 +43,8 @@ namespace HCEngine.UnitTesting.DefaultLanguage
                 1,
                 false
                 );
-            TestSection<Loop>("loop while false testargs $z", false, null, false, false);
-            TestSection<Loop>("loop while inf $x 2 ( testargs $x set $x add $x 1 )", false, null,
+            TestSection<LoopSyntax>("loop while false testargs $z", false, null, false, false);
+            TestSection<LoopSyntax>("loop while inf $x 2 ( testargs $x set $x add $x 1 )", false, null,
                 "$x", 0, 2, true, true, 
                 "$x", 0, 0, "$x", 0, 1, 1, null,
                 "$x", 1, 2, true, true, 

@@ -1,4 +1,4 @@
-﻿using HCEngine.Default;
+﻿using HCEngine.DefaultImplementations;
 using System.Collections.Generic;
 
 namespace HCEngine
@@ -14,6 +14,8 @@ namespace HCEngine
         /// <param name="factory">Factory to build the default scope</param>
         public Engine(IScopeFactory factory)
         {
+            if (factory == null)
+                factory = new ScopeFactory();
             ReaderFactory = new SourceReaderFactory();
             ScriptFactory = new DefaultLanguageScriptFactory();
             DefaultScope = factory.MakeScope();
@@ -68,6 +70,7 @@ namespace HCEngine
         /// </summary>
         /// <param name="source">Script source code</param>
         /// <param name="arguments">Arguments to give to the script</param>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1804:RemoveUnusedLocals", MessageId = "o")]
         public void LoadAndRun(string source, IDictionary<string, object> arguments)
         {
             IScript script = LoadScript(source);

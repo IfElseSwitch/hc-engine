@@ -4,6 +4,7 @@
     /// Exception for Scope errors.
     /// Thrown when trying to access a non-existant container
     /// </summary>
+    [System.Serializable]
     public class ScopeException : ExecutionException
     {
         private const string c_ErrorType = "Scope";

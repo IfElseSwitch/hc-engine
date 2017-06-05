@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.Serialization;
 
 namespace HCEngine
 {
@@ -16,7 +17,7 @@ namespace HCEngine
         /// <param name="line">Line number at which the error occcurs</param>
         /// <param name="column">Column at which the error occurs</param>
         /// <param name="description">Description of the error</param>
-        public HCEngineException(string errorType, string lineOfCode, int line, int column, string description)
+        protected HCEngineException(string errorType, string lineOfCode, int line, int column, string description)
         {
             ErrorType = errorType;
             LineOfCode = lineOfCode;
@@ -31,7 +32,7 @@ namespace HCEngine
         /// <param name="errorType">Type of error as displayed to the user</param>
         /// <param name="reader"><see cref="ISourceReader"/> used to read the source</param>
         /// <param name="description">Description of the error</param>
-        public HCEngineException(string errorType, ISourceReader reader, string description)
+        protected HCEngineException(string errorType, ISourceReader reader, string description)
                     : this(errorType, reader.LineOfCode, reader.Line, reader.Column, description) { }
 
         /// <summary>

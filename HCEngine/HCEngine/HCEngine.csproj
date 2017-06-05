@@ -21,7 +21,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <CodeAnalysisRuleSet>ExtendedDesignGuidelineRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSet>HCEngine.ruleset</CodeAnalysisRuleSet>
     <DocumentationFile>bin\Debug\HCEngine.XML</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
@@ -31,6 +31,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>HCEngine.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup>
     <RunPostBuildEvent>OnOutputUpdated</RunPostBuildEvent>
@@ -41,41 +42,42 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Default\Built-in\Calls.cs" />
-    <Compile Include="Default\Built-in\Types.cs" />
-    <Compile Include="Default\Factories\DefaultLanguageScriptFactory.cs" />
-    <Compile Include="Default\ExecutionScope.cs" />
-    <Compile Include="Default\Language\DefaultLanguageKeywords.cs" />
-    <Compile Include="Default\Language\DefaultLanguageNodes.cs" />
-    <Compile Include="Default\Language\Input\InputStatement.cs" />
-    <Compile Include="Default\Language\Input\DeclarationList.cs" />
-    <Compile Include="Default\Language\Input\InputDeclaration.cs" />
-    <Compile Include="Default\Language\Input\InputSection.cs" />
-    <Compile Include="Default\Language\ScriptRoot.cs" />
-    <Compile Include="Default\Language\Statements\Assignation.cs" />
-    <Compile Include="Default\Language\Statements\Constant.cs" />
-    <Compile Include="Default\Language\Statements\LoopDeclarations\EachDeclaration.cs" />
-    <Compile Include="Default\Language\Statements\If.cs" />
-    <Compile Include="Default\Language\Statements\Loop.cs" />
-    <Compile Include="Default\Language\Statements\LoopDeclarations\LoopDeclaration.cs" />
-    <Compile Include="Default\Language\Statements\Operation.cs" />
-    <Compile Include="Default\Language\Statements\Section.cs" />
-    <Compile Include="Default\Language\Statements\Statement.cs" />
-    <Compile Include="Default\Language\Statements\Call.cs" />
-    <Compile Include="Default\Language\Statements\StatementList.cs" />
-    <Compile Include="Default\Language\Statements\Variable.cs" />
-    <Compile Include="Default\Language\Statements\LoopDeclarations\WhileDeclaration.cs" />
-    <Compile Include="Default\LoopedSourceReader.cs" />
-    <Compile Include="Default\Factories\ScopeFactory.cs" />
-    <Compile Include="Default\Script.cs" />
-    <Compile Include="Default\ScriptExecution.cs" />
-    <Compile Include="Default\SourceReader.cs" />
-    <Compile Include="Default\Factories\SourceReaderFactory.cs" />
+    <Compile Include="DefaultImpl\Built-in\Calls.cs" />
+    <Compile Include="DefaultImpl\Built-in\Types.cs" />
+    <Compile Include="DefaultImpl\Factories\DefaultLanguageScriptFactory.cs" />
+    <Compile Include="DefaultImpl\ExecutionScope.cs" />
+    <Compile Include="DefaultImpl\Language\DefaultLanguageKeywords.cs" />
+    <Compile Include="DefaultImpl\Language\DefaultLanguageNodes.cs" />
+    <Compile Include="DefaultImpl\Language\Input\InputStatement.cs" />
+    <Compile Include="DefaultImpl\Language\Input\DeclarationList.cs" />
+    <Compile Include="DefaultImpl\Language\Input\InputDeclaration.cs" />
+    <Compile Include="DefaultImpl\Language\Input\InputSection.cs" />
+    <Compile Include="DefaultImpl\Language\ScriptRootSyntax.cs" />
+    <Compile Include="DefaultImpl\Language\Statements\AssignationSyntax.cs" />
+    <Compile Include="DefaultImpl\Language\Statements\ConstantSyntax.cs" />
+    <Compile Include="DefaultImpl\Language\Statements\LoopDeclarations\EachDeclaration.cs" />
+    <Compile Include="DefaultImpl\Language\Statements\IfSyntax.cs" />
+    <Compile Include="DefaultImpl\Language\Statements\LoopSyntax.cs" />
+    <Compile Include="DefaultImpl\Language\Statements\LoopDeclarations\LoopDeclaration.cs" />
+    <Compile Include="DefaultImpl\Language\Statements\OperationSyntax.cs" />
+    <Compile Include="DefaultImpl\Language\Statements\SectionSyntax.cs" />
+    <Compile Include="DefaultImpl\Language\Statements\StatementSyntax.cs" />
+    <Compile Include="DefaultImpl\Language\Statements\CallSyntax.cs" />
+    <Compile Include="DefaultImpl\Language\Statements\StatementListSyntax.cs" />
+    <Compile Include="DefaultImpl\Language\Statements\VariableSyntax.cs" />
+    <Compile Include="DefaultImpl\Language\Statements\LoopDeclarations\WhileDeclaration.cs" />
+    <Compile Include="DefaultImpl\LoopedSourceReader.cs" />
+    <Compile Include="DefaultImpl\Factories\ScopeFactory.cs" />
+    <Compile Include="DefaultImpl\Script.cs" />
+    <Compile Include="DefaultImpl\ScriptExecution.cs" />
+    <Compile Include="DefaultImpl\SourceReader.cs" />
+    <Compile Include="DefaultImpl\Factories\SourceReaderFactory.cs" />
     <Compile Include="Exceptions\ExecutionException.cs" />
     <Compile Include="Exceptions\HCEngineException.cs" />
     <Compile Include="Engine.cs" />
     <Compile Include="ExposedCallAttribute.cs" />
     <Compile Include="ExposedTypeAttribute.cs" />
+    <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="IExecutionScope.cs" />
     <Compile Include="Factories\IScopeFactory.cs" />
     <Compile Include="IScript.cs" />
@@ -91,6 +93,7 @@
     <Compile Include="Versionning.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="HCEngine.ruleset" />
     <None Include="RootClassDiagram.cd" />
   </ItemGroup>
   <ItemGroup />

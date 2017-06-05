@@ -17,7 +17,7 @@ namespace HCEngine
         /// <param name="word">Word to use for instantiation</param>
         /// <param name="instance">Instance created</param>
         /// <returns>True if an instance is created, false otherwise.</returns>
-        bool Try(string word, out object instance);
+        bool TryRead(string word, out object instance);
     }
 
     /// <summary>
@@ -53,6 +53,8 @@ namespace HCEngine
         /// <returns></returns>
         public static IConstantReader ResolveConstantReader(ExposedTypeAttribute exposed)
         {
+            if (exposed == null)
+                return null;
             if (exposed.ConstantReaderType == null)
                 return null;
             Type t = exposed.ConstantReaderType;

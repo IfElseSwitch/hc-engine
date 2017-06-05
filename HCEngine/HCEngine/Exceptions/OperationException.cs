@@ -4,6 +4,7 @@
     /// Exception for Operation errors.
     /// Thrown when a call receives wrong arguments
     /// </summary>
+    [System.Serializable]
     public class OperationException : ExecutionException
     {
         private const string c_ErrorType = "Operation";

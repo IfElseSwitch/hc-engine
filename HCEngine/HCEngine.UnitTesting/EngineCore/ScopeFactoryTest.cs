@@ -24,7 +24,7 @@ namespace HCEngine.UnitTesting.EngineCore
         [TestMethod]
         public void ScopeFactoryCallsTest()
         {
-            IScopeFactory factory = new Default.ScopeFactory();
+            IScopeFactory factory = new DefaultImplementations.ScopeFactory();
             IExecutionScope scope = factory.MakeScope();
             Assert.IsTrue(scope.Contains("firstMethod"));
             Assert.IsTrue(scope.IsOfType<MethodInfo>("firstMethod"));
@@ -42,7 +42,7 @@ namespace HCEngine.UnitTesting.EngineCore
         [TestMethod]
         public void ScopeFactoryTypesTest()
         {
-            IScopeFactory factory = new Default.ScopeFactory();
+            IScopeFactory factory = new DefaultImplementations.ScopeFactory();
             IExecutionScope scope = factory.MakeScope();
             Assert.IsTrue(scope.Contains("FirstType"));
             Assert.IsTrue(scope.IsOfType<Type>("FirstType"));
@@ -81,7 +81,7 @@ namespace HCEngine.UnitTesting.EngineCore
             IConstantReader cr = scope["cr:String"] as IConstantReader;
             Assert.IsNotNull(cr);
             object res;
-            Assert.IsTrue(cr.Try("\"test\"", out res));
+            Assert.IsTrue(cr.TryRead("\"test\"", out res));
             Assert.AreEqual("test", res);
 
         }

@@ -1,6 +1,6 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using HCEngine.Default;
+using HCEngine.DefaultImplementations;
 
 namespace HCEngine.UnitTesting.EngineCore
 {

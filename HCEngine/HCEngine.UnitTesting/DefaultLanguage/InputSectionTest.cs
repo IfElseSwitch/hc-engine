@@ -1,8 +1,8 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
-using HCEngine.Default;
-using HCEngine.Default.Language;
+using HCEngine.DefaultImplementations;
+using HCEngine.DefaultImplementations.Language;
 
 namespace HCEngine.UnitTesting.DefaultLanguage
 {

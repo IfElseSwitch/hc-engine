@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using HCEngine.Default;
-using HCEngine.Default.Language;
+using HCEngine.DefaultImplementations;
+using HCEngine.DefaultImplementations.Language;
 
 namespace HCEngine.UnitTesting.DefaultLanguage
 {
@@ -20,32 +20,32 @@ namespace HCEngine.UnitTesting.DefaultLanguage
         [TestMethod]
         public void TestConstant()
         {
-            TestOperation<Constant>("1", false, 1, null);
-            TestOperation<Constant>("\"the cat\"", false, "the cat", null);
-            TestOperation<Constant>("[wrong]", true, null, typeof(SyntaxException));
+            TestOperation<ConstantSyntax>("1", false, 1, null);
+            TestOperation<ConstantSyntax>("\"the cat\"", false, "the cat", null);
+            TestOperation<ConstantSyntax>("[wrong]", true, null, typeof(SyntaxException));
         }
 
         [TestMethod]
         public void TestCall()
         {
             m_Scope["$x"] = 1;
-            TestOperation<Call>("testcall", false, "OK", null);
-            TestOperation<Call>("testargs $x", false, 1, null);
-            TestOperation<Call>("testwrong", true, null, typeof(ScopeException));
-            TestOperation<Call>("testcall $x", false, "OK", null);
-            TestOperation<Call>("testargs", true, null, typeof(SyntaxException));
-            TestOperation<Call>("testargs 2", false, 2, null);
-            TestOperation<Call>("testargs \"OK\"", true, null, typeof(OperationException));
+            TestOperation<CallSyntax>("testcall", false, "OK", null);
+            TestOperation<CallSyntax>("testargs $x", false, 1, null);
+            TestOperation<CallSyntax>("testwrong", true, null, typeof(ScopeException));
+            TestOperation<CallSyntax>("testcall $x", false, "OK", null);
+            TestOperation<CallSyntax>("testargs", true, null, typeof(SyntaxException));
+            TestOperation<CallSyntax>("testargs 2", false, 2, null);
+            TestOperation<CallSyntax>("testargs \"OK\"", true, null, typeof(OperationException));
         }
 
         [TestMethod]
         public void TestVariable()
         {
             m_Scope["$x"] = 1;
-            TestOperation<Variable>("$x", false, 1, null);
-            TestOperation<Variable>("$y", true, null, typeof(ScopeException));
-            TestOperation<Variable>("$x y", false, 1, null);
-            TestOperation<Variable>("x", true, null, typeof(SyntaxException));
+            TestOperation<VariableSyntax>("$x", false, 1, null);
+            TestOperation<VariableSyntax>("$y", true, null, typeof(ScopeException));
+            TestOperation<VariableSyntax>("$x y", false, 1, null);
+            TestOperation<VariableSyntax>("x", true, null, typeof(SyntaxException));
         }
 
         [TestMethod]
@@ -72,7 +72,7 @@ namespace HCEngine.UnitTesting.DefaultLanguage
             ISourceReader reader = new SourceReader();
 
             reader.Initialize(source);
-            Assignation assign = new Assignation();
+            AssignationSyntax assign = new AssignationSyntax();
 
             var exec = assign.Execute(reader, scope, false);
             object[] expected = new object[] { expectedValue, null };
