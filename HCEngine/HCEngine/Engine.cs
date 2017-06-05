@@ -1,4 +1,5 @@
 ﻿using HCEngine.Default;
+using System.Collections.Generic;
 
 namespace HCEngine
 {
@@ -14,7 +15,7 @@ namespace HCEngine
         public Engine(IScopeFactory factory)
         {
             ReaderFactory = new SourceReaderFactory();
-            Structure = new DefaultLanguageScriptFactory();
+            ScriptFactory = new DefaultLanguageScriptFactory();
             DefaultScope = factory.MakeScope();
         }
 
@@ -35,9 +36,9 @@ namespace HCEngine
         }
 
         /// <summary>
-        /// Structure of the script language to interpret.
+        /// Factory of the script language to interpret.
         /// </summary>
-        public IScriptFactory Structure
+        public IScriptFactory ScriptFactory
         {
             get;
             set;
@@ -57,9 +58,31 @@ namespace HCEngine
         /// </summary>
         /// <param name="source">Text of the script</param>
         /// <returns>The corresponding <see cref="IScript"/></returns>
-        IScript LoadScript(string source)
+        public IScript LoadScript(string source)
         {
-            return Structure.CreateScript(ReaderFactory.MakeReader(source), DefaultScope);
+            return ScriptFactory.CreateScript(ReaderFactory.MakeReader(source), DefaultScope);
+        }
+
+        /// <summary>
+        /// Loads a script, and execute it completely with the given arguments.
+        /// </summary>
+        /// <param name="source">Script source code</param>
+        /// <param name="arguments">Arguments to give to the script</param>
+        public void LoadAndRun(string source, IDictionary<string, object> arguments)
+        {
+            IScript script = LoadScript(source);
+            var exec = script.Run(arguments);
+            foreach (object o in exec)
+                ;
+        }
+
+        /// <summary>
+        /// Loads a script, and execute it completely with no arguments.
+        /// </summary>
+        /// <param name="source">Script source code</param>
+        public void LoadAndRun(string source)
+        {
+            LoadAndRun(source, new Dictionary<string, object>());
         }
     }
 }

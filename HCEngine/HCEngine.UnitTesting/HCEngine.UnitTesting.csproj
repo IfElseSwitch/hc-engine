@@ -62,6 +62,7 @@
     <Compile Include="EngineCore\ExecutionScopeTest.cs" />
     <Compile Include="EngineCore\ScriptExecutionTest.cs" />
     <Compile Include="EngineCore\ScopeFactoryTest.cs" />
+    <Compile Include="EngineTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\HCEngine\HCEngine.csproj">
