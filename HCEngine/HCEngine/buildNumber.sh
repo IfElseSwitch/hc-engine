@@ -6,6 +6,6 @@ echo "namespace HCEngine" > $out
 echo "{" >> $out
 echo "    static class Versionning" >> $out
 echo "    {" >> $out
-echo "        public const string Value = \"$api.$rev.*\";" >> $out
+echo "        public const string Value = \"$api.$rev\";" >> $out
 echo "    }" >> $out
 echo "}" >> $out

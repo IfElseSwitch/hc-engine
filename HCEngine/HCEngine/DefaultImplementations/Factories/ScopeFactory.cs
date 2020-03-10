@@ -85,6 +85,10 @@ namespace HCEngine.DefaultImplementations
             else if (name.Contains("'"))
                 name = name.Split('\'')[0];
             scope[name] = type;
+            if (exposed.Generic)
+            {
+                scope[string.Format("gen:{0}", name)] = true;
+            }
             if (exposed.ConstantReaderType != null)
                 scope[string.Format("cr:{0}", name)] = ExposedTypeAttribute.ResolveConstantReader(exposed);
         }

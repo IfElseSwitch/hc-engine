@@ -1,4 +1,8 @@
-﻿namespace HCEngine.DefaultImplementations
+﻿
+
+using System.Collections.Generic;
+
+namespace HCEngine.DefaultImplementations
 {
     /// <summary>
     ///     Class exposing strings
@@ -56,4 +60,10 @@
             }
         }
     }
+
+    [ExposedType(NameOverride = "List", Generic = true, LinkToType = typeof(List<object>))]
+    public static class ListLink
+    {
+    }
+
 }

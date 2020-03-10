@@ -35,6 +35,14 @@ namespace HCEngine.DefaultImplementations.Language
             if (!reader.LastKeyword.Equals(DefaultLanguageKeywords.TypingKeyword))
                 throw new SyntaxException(reader,
                     "In a declaration, the Typing keyword should follow the variable name.");
+            Type t = ReadType(reader, scope);
+            parametersMap.Add(id, t);
+            reader.ReadNext();
+            yield return parametersMap;
+        }
+
+        private static Type ReadType(ISourceReader reader, IExecutionScope scope)
+        {
             reader.ReadNext();
             if (reader.ReadingComplete)
                 throw new SyntaxException(reader, "Unexpected end of file");
@@ -43,9 +51,19 @@ namespace HCEngine.DefaultImplementations.Language
             var t = scope[reader.LastKeyword] as Type;
             if (t == null)
                 throw new SyntaxException(reader, "Type resolving failed.");
-            parametersMap.Add(id, t);
-            reader.ReadNext();
-            yield return parametersMap;
+            if (scope.IsGeneric(reader.LastKeyword))
+            {
+                reader.ReadNext();
+                if (!reader.LastKeyword.Equals(DefaultLanguageKeywords.GenericTypeArgumentKeyword))
+                {
+                    throw new SyntaxException(reader,
+                        "In a Generic declaration, the Generic argument keyword should follow the Type name.");
+                }
+                Type innerType = ReadType(reader, scope);
+                t = t.GetGenericTypeDefinition().MakeGenericType(innerType);
+            }
+
+            return t;
         }
     }
 }

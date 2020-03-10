@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace HCEngine
 {
@@ -39,5 +40,12 @@ namespace HCEngine
         /// <param name="identifier">Name of the value to check</param>
         /// <returns>True if the value exists and is of the expected type, false otherwise</returns>
         bool IsOfType<T>(string identifier);
+
+        /// <summary>
+        ///     Checks if a exposed type is generic
+        /// </summary>
+        /// <param name="identifier">identifier of the Type to check</param>
+        /// <returns>True if the exposed type is tagged as Generic, false otherwise</returns>
+        bool IsGeneric(string identifier);
     }
 }
