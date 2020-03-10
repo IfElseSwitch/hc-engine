@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 
 namespace HCEngine.DefaultImplementations
@@ -96,6 +97,15 @@ namespace HCEngine.DefaultImplementations
         public IExecutionScope MakeSubScope()
         {
             return new ExecutionScope(this);
+        }
+
+        /// <summary>
+        ///     <see cref="IExecutionScope.IsGeneric" />
+        /// </summary>
+        public bool IsGeneric(string identifier)
+        {
+            string genTestIdentifier = string.Format("gen:{0}", identifier);
+            return Contains(genTestIdentifier);
         }
     }
 }

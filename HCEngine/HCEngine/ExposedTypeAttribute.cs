@@ -39,6 +39,11 @@ namespace HCEngine
         public Type ConstantReaderType { get; set; }
 
         /// <summary>
+        ///     Is the type generic ? 
+        /// </summary>
+        public bool Generic { get; set; } = false;
+
+        /// <summary>
         ///     Helper method to resolve the ConstantReader for an exposed type attribute
         /// </summary>
         /// <param name="exposed"></param>

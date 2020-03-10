@@ -60,5 +60,10 @@
         ///     Keyword for declaring an assignation.
         /// </summary>
         public static string AssignationKeyword { get; set; } = "set";
+
+        /// <summary>
+        ///     Keyword for assigning a generic type argument.
+        /// </summary>
+        public static string GenericTypeArgumentKeyword { get; set; } = "of";
     }
 }

@@ -25,6 +25,12 @@ namespace HCEngine.UnitTesting.DefaultLanguage
             {"$list", typeof(List<int>) }
         };
 
+
+        static Dictionary<string, Type> s_NestedListParam = new Dictionary<string, Type>()
+        {
+            {"$list", typeof(List<List<List<int>>>) }
+        };
+
         IExecutionScope m_Scope = new ScopeFactory().MakeScope();
 
         [TestMethod]
@@ -70,6 +76,7 @@ namespace HCEngine.UnitTesting.DefaultLanguage
             TestInput<InputDeclaration>("$list List Int", true, null);
             TestInput<InputDeclaration>("$list is List Int", true, null);
             TestInput<InputDeclaration>("$list is of Int", true, null);
+            TestInput<InputDeclaration>("$list is List of List of List of Int", false, s_NestedListParam);
         }
 
 
